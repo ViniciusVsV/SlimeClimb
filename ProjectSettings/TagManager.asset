@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Spike
+  - PlayerCopy
   layers:
   - Default
   - TransparentFX
@@ -11,11 +13,11 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Foreground
+  - Background
+  - MIddleground
+  - PlayerCopy
   - 
   - 
   - 
@@ -40,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4062546155
+    locked: 0
+  - name: MIddleground
+    uniqueID: 2123329437
+    locked: 0
+  - name: Player
+    uniqueID: 14500249
+    locked: 0
+  - name: Terrain
+    uniqueID: 2340310893
+    locked: 0
+  - name: Foreground
+    uniqueID: 1632820797
     locked: 0
