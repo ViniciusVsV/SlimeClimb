@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour{
         GameObject newCopy = Instantiate(playerCopyPrefab, transform.position, Quaternion.identity);
         PlayerCopyController playerCopyController = newCopy.GetComponent<PlayerCopyController>();
 
-        transform.localScale /= 2;
+        transform.localScale /= 1.5f;
         newCopy.transform.localScale = transform.localScale;
         
         StartCoroutine(playerCopyController.JumpStart(launchDirection, rotation, nextRotation));

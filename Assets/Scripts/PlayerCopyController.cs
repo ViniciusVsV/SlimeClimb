@@ -107,7 +107,7 @@ public class PlayerCopyController : MonoBehaviour{
             Destroy(gameObject);
 
             playerController.numDivisions--;
-            other.transform.localScale *= 2;
+            other.transform.localScale *= 1.5f;
         }
     }
 }
