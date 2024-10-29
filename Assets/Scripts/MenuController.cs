@@ -7,7 +7,7 @@ public class MenuController : MonoBehaviour
 {
     public void IniciarJogo()
     {
-        SceneManager.LoadScene("Rodrigo");
+        SceneManager.LoadScene("Vinicius");
     }
 
     public void SairJogo()
