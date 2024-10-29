@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour{
     [SerializeField] GameObject playerCopyPrefab;
     [SerializeField] float sizeLimit;
 
+    [Header("Booleans")]
     public bool isJumping;
 
     //Temporário para a primeira build
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour{
             return;
 
         HandleJumping();
-        HandleDivision();
+        HandleDivision();  
     }
 
     void HandleJumping(){
@@ -57,14 +58,12 @@ public class PlayerController : MonoBehaviour{
 
     IEnumerator Jump(Vector2 direction, float rotation, float nextRotation){
         animator.SetTrigger("jump");
-
         yield return new WaitForEndOfFrame();
 
         while(!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerJump"))
             yield return null;
 
         isJumping = true;
-
         rb.velocity = direction * jumpSpeed;
         animator.SetBool("isJumping", true);
 
