@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Spike
   - PlayerCopy
+  - portal
+  - Porta
+  - Key
   layers:
   - Default
   - TransparentFX
