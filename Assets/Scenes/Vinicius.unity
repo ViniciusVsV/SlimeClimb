@@ -495,8 +495,7 @@ MonoBehaviour:
   playerSprite: {fileID: 1221288141}
   animator: {fileID: 1221288144}
   playerCopyPrefab: {fileID: 3469619942998949674, guid: 151d9b3138d9763449dc5986bb42872b, type: 3}
-  maxDivisions: 2
-  numDivisions: 0
+  sizeLimit: 0.6666667
   isJumping: 0
 --- !u!4 &519832769
 Transform:

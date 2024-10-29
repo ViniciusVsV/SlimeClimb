@@ -154,11 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136b9a4ef9d063b499bafd019a6e2521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  copyId: 0
   jumpSpeed: 10
+  triggerCollider: {fileID: 5517150344655675368}
+  triggerThreshold: 0.7
   playerSprite: {fileID: 782081930238677443}
   animator: {fileID: 5545491637658899613}
-  playerDetector: {fileID: 5517150344655675368}
   isJumping: 0
+  isMerging: 0
 --- !u!50 &328654557459713729
 Rigidbody2D:
   serializedVersion: 4

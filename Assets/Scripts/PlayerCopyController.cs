@@ -6,30 +6,37 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerCopyController : MonoBehaviour{
+    public int copyId;
+
     [Header("Movement")]
     [SerializeField] private float jumpSpeed;
     private Rigidbody2D rb;
 
+    [Header("Trigger")]
+    [SerializeField] private BoxCollider2D triggerCollider;
+    [SerializeField] private float triggerThreshold;
+
     [Header("Objects")]
     [SerializeField] private GameObject playerSprite;
     [SerializeField] private Animator animator;
-    [SerializeField] private BoxCollider2D playerDetector;
-    private GameObject player;
-    private PlayerController playerController;
+    private Transform playerPosition;
 
     public bool isJumping;
+    public bool isMerging;
     
     void Start(){
         rb = GetComponent<Rigidbody2D>();
         if(!rb)
             Debug.Log("PORRA");
 
-        player = GameObject.FindWithTag("Player");
-        playerController = player.GetComponent<PlayerController>();
+        playerPosition = GameObject.FindWithTag("Player").GetComponent<Transform>();
+
+        copyId = GameObject.FindGameObjectsWithTag("PlayerCopy").Length;
     }
 
     void Update(){
         HandleJumping();
+        HandleTrigger();
     }
 
     void HandleJumping(){
@@ -48,33 +55,6 @@ public class PlayerCopyController : MonoBehaviour{
         else if(Input.GetKeyDown(KeyCode.D))
             StartCoroutine(Jump(Vector2.right, -90f, 90f));
     }
-
-    public IEnumerator JumpStart(Vector2 direction, float rotation, float nextRotation){
-        yield return new WaitForEndOfFrame();
-
-        animator.SetTrigger("jumpCopy");
-
-        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
-        playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
-
-        isJumping = true;
-
-        rb.velocity = direction * jumpSpeed;
-        animator.SetBool("isJumping", true);
-
-        while(rb.velocity != Vector2.zero)
-            yield return null;
-
-        playerDetector.enabled = true;
-
-        isJumping = false;
-
-        animator.SetBool("isJumping", false);
-        
-        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
-        playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
-    }
-
     IEnumerator Jump(Vector2 direction, float rotation, float nextRotation){
         animator.SetTrigger("jump");
 
@@ -102,12 +82,60 @@ public class PlayerCopyController : MonoBehaviour{
         playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
     }
 
-    void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
-            Destroy(gameObject);
+    public IEnumerator JumpStart(Vector2 direction, float rotation, float nextRotation){
+        yield return new WaitForEndOfFrame();
 
-            playerController.numDivisions--;
-            other.transform.localScale *= 1.5f;
+        animator.SetTrigger("jumpCopy");
+
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
+        playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
+
+        isJumping = true;
+
+        rb.velocity = direction * jumpSpeed;
+        animator.SetBool("isJumping", true);
+
+        while(rb.velocity != Vector2.zero)
+            yield return null;
+
+        triggerCollider.enabled = true;
+
+        isJumping = false;
+
+        animator.SetBool("isJumping", false);
+        
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
+        playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
+    }
+
+    void HandleTrigger(){
+        if(triggerCollider.enabled == true)
+            return;
+
+        Vector2 playerDistance = playerPosition.position - transform.position;
+        if(playerDistance.magnitude >= triggerThreshold)
+            triggerCollider.enabled = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D other){
+        if(isMerging)
+            return;
+
+        if(other.CompareTag("Player")){
+            other.transform.localScale += transform.localScale * 0.5f;
+
+            Destroy(gameObject);
+        }
+
+        //Nao funciona ainda
+        else if(other.CompareTag("PlayerCopy")){
+            int otherId = other.GetComponentInParent<PlayerCopyController>().copyId;
+
+            if(copyId < otherId){
+                transform.localScale += other.transform.localScale;
+                
+                Destroy(other.gameObject);
+            }
         }
     }
 }

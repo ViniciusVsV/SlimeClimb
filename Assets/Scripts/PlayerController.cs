@@ -16,15 +16,12 @@ public class PlayerController : MonoBehaviour{
 
     [Header("Division")]
     [SerializeField] GameObject playerCopyPrefab;
-    [SerializeField] int maxDivisions;
-    public int numDivisions;
+    [SerializeField] float sizeLimit;
 
     public bool isJumping;
     
     void Start(){
         rb = GetComponent<Rigidbody2D>();
-    
-        numDivisions = 0;
     }
 
     void Update(){
@@ -77,7 +74,7 @@ public class PlayerController : MonoBehaviour{
     }
 
     void HandleDivision(){
-        if(numDivisions == maxDivisions)
+        if(transform.localScale.x <= sizeLimit)
             return;
 
         Vector2 launchDirection = Vector2.zero;
@@ -122,7 +119,5 @@ public class PlayerController : MonoBehaviour{
         newCopy.transform.localScale = transform.localScale;
         
         StartCoroutine(playerCopyController.JumpStart(launchDirection, rotation, nextRotation));
-
-        numDivisions++;
     }
 }
