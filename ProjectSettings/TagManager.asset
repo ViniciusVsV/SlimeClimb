@@ -8,6 +8,7 @@ TagManager:
   - PlayerCopy
   - CopyDetector
   - Obstacle
+  - Portal
   layers:
   - Default
   - TransparentFX

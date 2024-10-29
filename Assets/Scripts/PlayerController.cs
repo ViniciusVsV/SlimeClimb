@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour{
 
     [Header("Booleans")]
     public bool isJumping;
-
+    public bool hasKey;
     //Temporário para a primeira build
     public bool isDead;
     
