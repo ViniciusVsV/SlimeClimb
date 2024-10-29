@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool isTeleporting; 
-    private Rigidbody2D rb;
     private bool hasKey = false;
+    private Rigidbody2D rb;
 
     [Header("Movement")]
     [SerializeField] private float jumpSpeed;
-
-    [Header("Objects")]
     [SerializeField] private GameObject playerSprite;
     [SerializeField] private Animator animator;
 
@@ -29,83 +26,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleJumping();
-        HandleDivision();
+        HandleDivision();  
     }
-    // coleta de chave
+
+    // Verifica se o player tem a chave
     public bool HasKey()
     {
         return hasKey;
     }
 
-    private void CollectKey(GameObject key)
+    // Método para coletar a chave
+    public void CollectKey()
     {
-        hasKey = true; 
-        Destroy(key);   
+        hasKey = true;
         
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("portal") && !isTeleporting) // colisao portal
-        {
-            GameObject targetPortal = FindOtherPortal(other.gameObject);
-            if (targetPortal != null)
-            {
-                StartCoroutine(TeleportToPortal(targetPortal));
-            }
-        }
-
-        if (other.CompareTag("Key"))   // colisao chave
-        {
-            CollectKey(other.gameObject);
-        }
-
-        if (other.CompareTag("Porta"))  // Se colidir com uma porta
-        {
-            OpenDoor(other.gameObject);
-            Debug.Log("colidiu");
-        }
-    }
-
-    //Abrir a porta
-
-    private void OpenDoor(GameObject door)
-    {
-        if (hasKey)  
-        {
-            Destroy(door);  
-            
-        }
-    }
-
-    // troca de posicao entre portais
-    GameObject FindOtherPortal(GameObject currentPortal)
-    {
-        
-        GameObject[] portals = GameObject.FindGameObjectsWithTag("portal");
-
-        
-        foreach (GameObject portal in portals)
-        {
-            if (portal != currentPortal)
-            {
-                return portal;
-            }
-        }
-        return null;
-    }
-
-    IEnumerator TeleportToPortal(GameObject targetPortal)
-    {
-        isTeleporting = true;
-
-       
-        transform.position = targetPortal.transform.position;
-
-       
-        yield return new WaitForSeconds(0.5f);
-
-        isTeleporting = false;
     }
 
     void HandleJumping()
@@ -125,14 +59,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator Jump(Vector2 direction, float rotation, float nextRotation)
     {
         animator.SetTrigger("jump");
-
         yield return new WaitForEndOfFrame();
 
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerJump"))
             yield return null;
 
         isJumping = true;
-
         rb.velocity = direction * jumpSpeed;
         animator.SetBool("isJumping", true);
 
