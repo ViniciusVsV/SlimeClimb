@@ -19,12 +19,21 @@ public class PlayerController : MonoBehaviour{
     [SerializeField] float sizeLimit;
 
     public bool isJumping;
+
+    //Temporário para a primeira build
+    public bool isDead;
     
     void Start(){
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update(){
+        HandleRestart();
+
+        //Temporário
+        if(isDead)
+            return;
+
         HandleJumping();
         HandleDivision();
     }
@@ -119,5 +128,20 @@ public class PlayerController : MonoBehaviour{
         newCopy.transform.localScale = transform.localScale;
         
         StartCoroutine(playerCopyController.JumpStart(launchDirection, rotation, nextRotation));
+    }
+
+    //Temporário
+    void HandleRestart(){
+        if(Input.GetKeyDown(KeyCode.P))
+            SceneManager.LoadScene("Vinicius");
+    }
+
+    //Temporário
+    void OnCollisionEnter2D(Collision2D other){
+        if(other.gameObject.CompareTag("Obstacle")){
+            playerSprite.SetActive(false);
+
+            isDead = true;
+        }
     }
 }

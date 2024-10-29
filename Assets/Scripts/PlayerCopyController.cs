@@ -142,5 +142,8 @@ public class PlayerCopyController : MonoBehaviour{
                 Destroy(other.transform.parent.gameObject);
             }
         }
+
+        else if(other.CompareTag("Obstacle"))
+            Destroy(gameObject);
     }
 }
