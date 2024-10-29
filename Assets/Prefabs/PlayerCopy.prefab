@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 5517150344655675368}
   m_Layer: 0
   m_Name: CopyDetector
-  m_TagString: PlayerCopy
+  m_TagString: CopyDetector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

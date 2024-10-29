@@ -37,6 +37,8 @@ public class PlayerCopyController : MonoBehaviour{
     void Update(){
         HandleJumping();
         HandleTrigger();
+
+        isMerging = false;
     }
 
     void HandleJumping(){
@@ -121,20 +123,23 @@ public class PlayerCopyController : MonoBehaviour{
         if(isMerging)
             return;
 
+        Debug.Log(other);
+
+        isMerging = true;
+
         if(other.CompareTag("Player")){
             other.transform.localScale += transform.localScale * 0.5f;
 
             Destroy(gameObject);
         }
 
-        //Nao funciona ainda
-        else if(other.CompareTag("PlayerCopy")){
+        else if(other.CompareTag("CopyDetector")){
             int otherId = other.GetComponentInParent<PlayerCopyController>().copyId;
 
             if(copyId < otherId){
-                transform.localScale += other.transform.localScale;
+                transform.localScale += other.transform.parent.localScale;
                 
-                Destroy(other.gameObject);
+                Destroy(other.transform.parent.gameObject);
             }
         }
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spike
   - PlayerCopy
+  - CopyDetector
   layers:
   - Default
   - TransparentFX
