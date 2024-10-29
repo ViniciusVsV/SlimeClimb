@@ -157,7 +157,7 @@ MonoBehaviour:
   copyId: 0
   jumpSpeed: 10
   triggerCollider: {fileID: 5517150344655675368}
-  triggerThreshold: 0.8
+  triggerThreshold: 0.9
   playerSprite: {fileID: 782081930238677443}
   animator: {fileID: 5545491637658899613}
   isJumping: 0
