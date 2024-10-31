@@ -15,7 +15,7 @@ public class KeyBehaviour : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("PlayerCopy"))
         {
             playerController.hasKey = true;
-                
+            AudioController.instance.PlayCollectSound();
             Destroy(gameObject);     
         }
     }

@@ -6,16 +6,18 @@ public class Door : MonoBehaviour
 {
     private PlayerController playerController;
 
-    void Start(){
+    void Start()
+    {
         playerController = FindFirstObjectByType<PlayerController>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") || other.CompareTag("PlayerCopy"))
-        {
-            if(playerController.hasKey)
-                Destroy(gameObject);      
-        }
+            if (playerController.hasKey)
+            {
+                AudioController.instance.PlayDoorSound();
+                Destroy(gameObject);
+            }
     }
 }
