@@ -19,21 +19,20 @@ public class AudioController : MonoBehaviour
 
     void Awake()
     {
-        // Implement the singleton pattern
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Keep this object between scenes
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); // Ensure only one instance exists
+            Destroy(gameObject); 
         }
     }
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); // Ensure an AudioSource component is attached
+        audioSource = GetComponent<AudioSource>(); 
     }
 
     public void PlayJumpSound()

@@ -158,27 +158,6 @@ public class PlayerCopyController : MonoBehaviour
         }
     }
 
-    /*void OnTriggerStay2D(Collider2D other)
-    {
-        if (isMerging)
-            return;
-
-        isMerging = true;
-
-        if (other.CompareTag("Player"))
-            MergePlayer();
-
-        else if (other.CompareTag("CopyDetector"))
-            MergeCopy(other);
-
-        else if (other.CompareTag("Obstacle"))
-        {
-            AudioController.instance.PlayDeathSound();
-
-            Destroy(gameObject);
-        }
-    }*/
-
     void MergePlayer()
     {
         Debug.Log("Tentando fundir com o player. O meu id é: " + copyId);
