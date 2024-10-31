@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
 
         isJumping = false;
+        AudioController.instance.PlayLandSound();
 
         animator.SetBool("isJumping", false);
 

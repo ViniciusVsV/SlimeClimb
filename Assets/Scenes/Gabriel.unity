@@ -9959,6 +9959,7 @@ MonoBehaviour:
   doorSound: {fileID: 8300000, guid: 06caf5d885219a3488605ede5dc29b53, type: 3}
   copySound: {fileID: 8300000, guid: c9d4c544618fe6b4fa520ae3780cad11, type: 3}
   mergeSound: {fileID: 8300000, guid: 7853a1ff76e52d84e9466c21a018dc00, type: 3}
+  landSound: {fileID: 8300000, guid: 76a916cc0f953104a995ad52ae337e71, type: 3}
 --- !u!1 &1911795357
 GameObject:
   m_ObjectHideFlags: 0

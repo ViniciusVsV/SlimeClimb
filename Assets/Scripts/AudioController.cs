@@ -14,6 +14,7 @@ public class AudioController : MonoBehaviour
     public AudioClip doorSound;
     public AudioClip copySound;
     public AudioClip mergeSound;
+    public AudioClip landSound;
     private AudioSource audioSource;
 
     void Awake()
@@ -38,6 +39,10 @@ public class AudioController : MonoBehaviour
     public void PlayJumpSound()
     {
         PlaySound(jumpSound);
+    }
+    public void PlayLandSound()
+    {
+        PlaySound(landSound);
     }
 
     public void PlayDeathSound()

@@ -82,7 +82,7 @@ public class PlayerCopyController : MonoBehaviour
             yield return null;
 
         isJumping = false;
-
+        AudioController.instance.PlayLandSound();
         animator.SetBool("isJumping", false);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
@@ -109,6 +109,7 @@ public class PlayerCopyController : MonoBehaviour
         triggerCollider.enabled = true;
 
         isJumping = false;
+        AudioController.instance.PlayLandSound();
 
         animator.SetBool("isJumping", false);
 
