@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuController : MonoBehaviour
+public class PauseMenuController : MonoBehaviour
 {
     [SerializeField]
-    GameObject menuPrincipal;
+    GameObject menuPause;
 
     [SerializeField]
     GameObject menuConfig;
@@ -18,23 +18,38 @@ public class MenuController : MonoBehaviour
     {
         menuConfig.SetActive(false);
         menuControles.SetActive(false);
+        menuPause.SetActive(false);
 
     }
 
-    public void IniciarJogo()
+    public void PauseMenu()
     {
-        SceneManager.LoadScene("Vinicius");
+        menuPause.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void Continuar()
+    {
+        menuPause.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void Reiniciar()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     public void Configuracao()
     {
         menuConfig.SetActive(true);
-        menuPrincipal.SetActive(false);
+        menuPause.SetActive(false);
     }
 
-    public void SairJogo()
+    public void MenuPrincipal()
     {
-        Application.Quit();
+        SceneManager.LoadScene("Menu");
+        Time.timeScale = 1;
     }
 
     public void ConfigControles()
@@ -46,7 +61,7 @@ public class MenuController : MonoBehaviour
     public void ConfigVoltar()
     {
         menuConfig.SetActive(false);
-        menuPrincipal.SetActive(true);
+        menuPause.SetActive(true);
     }
 
     public void ControlesVoltar()
