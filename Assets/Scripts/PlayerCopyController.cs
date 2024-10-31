@@ -155,7 +155,9 @@ public class PlayerCopyController : MonoBehaviour
         }
 
         else if (other.CompareTag("Obstacle"))
+        {
             AudioController.instance.PlayDeathSound();
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

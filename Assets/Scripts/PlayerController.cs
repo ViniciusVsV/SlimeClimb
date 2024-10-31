@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         GameObject newCopy = Instantiate(playerCopyPrefab, transform.position, Quaternion.identity);
+        AudioController.instance.PlayCopySound();
         PlayerCopyController playerCopyController = newCopy.GetComponent<PlayerCopyController>();
 
         transform.localScale /= 1.5f;
