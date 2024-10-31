@@ -12,6 +12,7 @@ public class PlayerCopyController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float jumpSpeed;
     private Rigidbody2D rb;
+    private float distancePlayer;
 
     [Header("Trigger")]
     [SerializeField] private BoxCollider2D triggerCollider;
@@ -21,9 +22,11 @@ public class PlayerCopyController : MonoBehaviour
     [SerializeField] private GameObject playerSprite;
     [SerializeField] private Animator animator;
     private Transform playerPosition;
+    private GameObject player;
 
     public bool isJumping;
     public bool isMerging;
+    public bool hasMerged;
 
     void Start()
     {
@@ -31,13 +34,17 @@ public class PlayerCopyController : MonoBehaviour
         if (!rb)
             Debug.Log("PORRA");
 
-        playerPosition = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        player = GameObject.FindWithTag("Player");
+        playerPosition = player.GetComponent<Transform>();
 
         copyId = GameObject.FindGameObjectsWithTag("PlayerCopy").Length;
     }
 
     void Update()
     {
+        if(PauseMenuController.Instance.isPaused)
+            return;
+
         HandleJumping();
         HandleTrigger();
 
@@ -106,6 +113,9 @@ public class PlayerCopyController : MonoBehaviour
         while (rb.velocity != Vector2.zero)
             yield return null;
 
+        if(distancePlayer < triggerThreshold)
+            MergePlayer();
+
         triggerCollider.enabled = true;
 
         isJumping = false;
@@ -122,8 +132,8 @@ public class PlayerCopyController : MonoBehaviour
         if (triggerCollider.enabled == true)
             return;
 
-        Vector2 playerDistance = playerPosition.position - transform.position;
-        if (playerDistance.magnitude >= triggerThreshold)
+        distancePlayer = Vector2.Distance(playerPosition.position, transform.position);
+        if (distancePlayer >= triggerThreshold)
             triggerCollider.enabled = true;
     }
 
@@ -132,33 +142,88 @@ public class PlayerCopyController : MonoBehaviour
         if (isMerging)
             return;
 
-        Debug.Log(other);
-
         isMerging = true;
 
         if (other.CompareTag("Player"))
-        {
-            other.transform.localScale += transform.localScale * 0.5f;
-            AudioController.instance.PlayMergeSound();
-            Destroy(gameObject);
-        }
+            MergePlayer();
 
         else if (other.CompareTag("CopyDetector"))
-        {
-            int otherId = other.GetComponentInParent<PlayerCopyController>().copyId;
-
-            if (copyId < otherId)
-            {
-                transform.localScale += other.transform.parent.localScale;
-                AudioController.instance.PlayMergeSound();
-                Destroy(other.transform.parent.gameObject);
-            }
-        }
+            MergeCopy(other);
 
         else if (other.CompareTag("Obstacle"))
         {
             AudioController.instance.PlayDeathSound();
+
             Destroy(gameObject);
+        }
+    }
+
+    /*void OnTriggerStay2D(Collider2D other)
+    {
+        if (isMerging)
+            return;
+
+        isMerging = true;
+
+        if (other.CompareTag("Player"))
+            MergePlayer();
+
+        else if (other.CompareTag("CopyDetector"))
+            MergeCopy(other);
+
+        else if (other.CompareTag("Obstacle"))
+        {
+            AudioController.instance.PlayDeathSound();
+
+            Destroy(gameObject);
+        }
+    }*/
+
+    void MergePlayer()
+    {
+        Debug.Log("Tentando fundir com o player. O meu id é: " + copyId);
+
+        Vector3 sizeIncrease;
+
+        if(hasMerged)
+            sizeIncrease = new Vector3(0.5f, 0.5f);
+        else
+            sizeIncrease = new Vector3(0.25f, 0.25f);
+
+        playerPosition.localScale += sizeIncrease;
+
+        AudioController.instance.PlayMergeSound();
+
+        Destroy(gameObject);
+    }
+
+    void MergeCopy(Collider2D other)
+    {
+        Debug.Log("Tentando fundir com uma cópia. O meu id é: " + copyId);
+
+        PlayerCopyController otherController = other.GetComponentInParent<PlayerCopyController>();
+        int otherId = otherController.copyId;
+
+        if (copyId < otherId)
+        {
+            transform.localScale += new Vector3(0.125f, 0.125f);
+            
+            AudioController.instance.PlayMergeSound();
+
+            Destroy(other.transform.parent.gameObject);
+
+            hasMerged = true;
+        }
+
+        else if (copyId > otherId)
+        {
+            other.transform.parent.localScale += new Vector3(0.125f, 0.125f);
+
+            AudioController.instance.PlayMergeSound();
+
+            Destroy(gameObject);
+
+            otherController.hasMerged = true;   
         }
     }
 }
