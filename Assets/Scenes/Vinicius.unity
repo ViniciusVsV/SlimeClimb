@@ -2220,7 +2220,7 @@ MonoBehaviour:
   playerSprite: {fileID: 1221288141}
   animator: {fileID: 1221288144}
   playerCopyPrefab: {fileID: 3469619942998949674, guid: 151d9b3138d9763449dc5986bb42872b, type: 3}
-  sizeLimit: 0.4444445
+  sizeLimit: 0.5
   isJumping: 0
   hasKey: 0
   isDead: 0
