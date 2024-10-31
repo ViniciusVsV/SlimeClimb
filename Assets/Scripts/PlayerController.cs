@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         HandleRestart();
 
         //Temporário
-        if (isDead)
+        if (isDead || PauseMenuController.Instance.isPaused)
             return;
 
         HandleJumping();

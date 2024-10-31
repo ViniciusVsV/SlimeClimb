@@ -38,6 +38,9 @@ public class PlayerCopyController : MonoBehaviour
 
     void Update()
     {
+        if(PauseMenuController.Instance.isPaused)
+            return;
+
         HandleJumping();
         HandleTrigger();
 

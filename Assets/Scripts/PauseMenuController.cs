@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
+    public static PauseMenuController Instance;
+
     [SerializeField]
     GameObject menuPause;
 
@@ -14,24 +16,42 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField]
     GameObject menuControles;
 
+    public bool isPaused;
+
     private void Start()
     {
+        Instance = this;
+
         menuConfig.SetActive(false);
         menuControles.SetActive(false);
         menuPause.SetActive(false);
 
     }
 
+    private void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(isPaused)
+                Continuar();
+            else
+                PauseMenu();
+        }
+    }
+
     public void PauseMenu()
     {
         menuPause.SetActive(true);
         Time.timeScale = 0;
+
+        isPaused = true;
     }
 
     public void Continuar()
     {
         menuPause.SetActive(false);
         Time.timeScale = 1;
+
+        isPaused = false;
     }
 
     public void Reiniciar()
