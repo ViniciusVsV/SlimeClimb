@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [Header("Objects")]
     [SerializeField] private GameObject playerSprite;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform jumpParticlesPoint;
+    [SerializeField] private ParticleSystem slimeParticles;
 
     [Header("Division")]
     [SerializeField] GameObject playerCopyPrefab;
@@ -22,8 +25,6 @@ public class PlayerController : MonoBehaviour
     [Header("Booleans")]
     public bool isJumping;
     public bool hasKey;
-    //Temporário para a primeira build
-    public bool isDead;
 
     void Start()
     {
@@ -32,12 +33,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleRestart();
-
-        //Temporário
-        if (isDead || PauseMenuController.Instance.isPaused)
-            return;
-
         HandleJumping();
         HandleDivision();
     }
@@ -69,9 +64,14 @@ public class PlayerController : MonoBehaviour
             yield return null;
 
         isJumping = true;
+
         AudioController.instance.PlayJumpSound();
+
         rb.velocity = direction * jumpSpeed;
+
         animator.SetBool("isJumping", true);
+
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
         playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
@@ -80,12 +80,17 @@ public class PlayerController : MonoBehaviour
             yield return null;
 
         isJumping = false;
+
         AudioController.instance.PlayLandSound();
 
         animator.SetBool("isJumping", false);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
         playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
+
+        yield return new WaitForSeconds(0.1f);
+
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
     }
 
     void HandleDivision()
@@ -140,26 +145,54 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale -= new Vector3(0.25f, 0.25f);
         newCopy.transform.localScale = transform.localScale;
+    
+        HandleParticleValues();
 
         StartCoroutine(playerCopyController.JumpStart(launchDirection, rotation, nextRotation));
     }
 
-    //Temporário
-    void HandleRestart()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-            SceneManager.LoadScene("Vinicius");
+    public void HandleParticleValues(){
+        if(transform.localScale.x == 1f){
+            var main = slimeParticles.main;
+            var shape =  slimeParticles.shape;
+
+            main.startSize = 0.1f;
+            shape.radius = 0.53f;
+            shape.position = new Vector3(0f, -0.17f, 0f);
+        }
+
+        else if(transform.localScale.x == 0.75f){
+            var main = slimeParticles.main;
+            var shape =  slimeParticles.shape;
+
+            main.startSize = 0.06f;
+            shape.radius = 0.41f;
+            shape.position = new Vector3(0f, -0.14f, 0f);
+        }
+
+        else{
+            var main = slimeParticles.main;
+            var shape =  slimeParticles.shape;
+
+            main.startSize = 0.03f;
+            shape.radius = 0.29f;
+            shape.position = new Vector3(0f, -0.11f, 0f);
+        }
     }
 
-    //Temporário
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Obstacle"))
         {
             AudioController.instance.PlayDeathSound();
-            playerSprite.SetActive(false);
 
-            isDead = true;
+            DeathParticles.Instance.PlayParticles(transform.position, transform.localScale);
+
+            DeathCameraShake.Instance.GenerateImpulse();
+
+            Destroy(playerSprite.gameObject);
+            Destroy(slimeParticles.gameObject);
+            enabled = false;
         }
     }
 }

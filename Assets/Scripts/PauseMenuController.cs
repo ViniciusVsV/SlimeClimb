@@ -36,6 +36,8 @@ public class PauseMenuController : MonoBehaviour
             else
                 PauseMenu();
         }
+
+        HandleRestart();
     }
 
     public void PauseMenu()
@@ -88,5 +90,11 @@ public class PauseMenuController : MonoBehaviour
     {
         menuConfig.SetActive(true);
         menuControles.SetActive(false);
+    }
+
+    void HandleRestart()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+            SceneManager.LoadScene("Vinicius");
     }
 }

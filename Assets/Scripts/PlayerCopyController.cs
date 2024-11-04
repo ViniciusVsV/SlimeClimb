@@ -21,6 +21,11 @@ public class PlayerCopyController : MonoBehaviour
     [Header("Objects")]
     [SerializeField] private GameObject playerSprite;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform jumpParticlesPoint;
+    [SerializeField] private ParticleSystem slimeParticles;
+
+    [Header("Player")]
+    private PlayerController playerController;
     private Transform playerPosition;
     private GameObject player;
 
@@ -36,8 +41,11 @@ public class PlayerCopyController : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerPosition = player.GetComponent<Transform>();
+        playerController = player.GetComponent<PlayerController>();
 
         copyId = GameObject.FindGameObjectsWithTag("PlayerCopy").Length;
+
+        HandleParticleValues();
     }
 
     void Update()
@@ -79,8 +87,13 @@ public class PlayerCopyController : MonoBehaviour
 
         isJumping = true;
 
+        AudioController.instance.PlayJumpSound();
+
         rb.velocity = direction * jumpSpeed;
+
         animator.SetBool("isJumping", true);
+
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
         playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
@@ -89,11 +102,15 @@ public class PlayerCopyController : MonoBehaviour
             yield return null;
 
         isJumping = false;
+
         AudioController.instance.PlayLandSound();
+        
         animator.SetBool("isJumping", false);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
         playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
+
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
     }
 
     public IEnumerator JumpStart(Vector2 direction, float rotation, float nextRotation)
@@ -125,6 +142,8 @@ public class PlayerCopyController : MonoBehaviour
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
         playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
+
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
     }
 
     void HandleTrigger()
@@ -154,6 +173,10 @@ public class PlayerCopyController : MonoBehaviour
         {
             AudioController.instance.PlayDeathSound();
 
+            DeathParticles.Instance.PlayParticles(transform.position, transform.localScale);
+
+            DeathCameraShake.Instance.GenerateImpulse();
+
             Destroy(gameObject);
         }
     }
@@ -170,6 +193,7 @@ public class PlayerCopyController : MonoBehaviour
             sizeIncrease = new Vector3(0.25f, 0.25f);
 
         playerPosition.localScale += sizeIncrease;
+        playerController.HandleParticleValues();
 
         AudioController.instance.PlayMergeSound();
 
@@ -203,6 +227,37 @@ public class PlayerCopyController : MonoBehaviour
             Destroy(gameObject);
 
             otherController.hasMerged = true;   
+        }
+
+        HandleParticleValues();
+    }
+
+    void HandleParticleValues(){
+        if(transform.localScale.x == 1f){
+            var main = slimeParticles.main;
+            var shape =  slimeParticles.shape;
+
+            main.startSize = 0.1f;
+            shape.radius = 0.53f;
+            shape.position = new Vector3(0f, -0.17f, 0f);
+        }
+
+        else if(transform.localScale.x == 0.75f){
+            var main = slimeParticles.main;
+            var shape =  slimeParticles.shape;
+
+            main.startSize = 0.06f;
+            shape.radius = 0.41f;
+            shape.position = new Vector3(0f, -0.14f, 0f);
+        }
+
+        else{
+            var main = slimeParticles.main;
+            var shape =  slimeParticles.shape;
+
+            main.startSize = 0.03f;
+            shape.radius = 0.29f;
+            shape.position = new Vector3(0f, -0.11f, 0f);
         }
     }
 }
