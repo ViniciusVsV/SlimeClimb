@@ -6,9 +6,9 @@ TagManager:
   tags:
   - Spike
   - PlayerCopy
-  - portal
-  - Porta
-  - Key
+  - CopyDetector
+  - Obstacle
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -21,7 +21,7 @@ TagManager:
   - Background
   - MIddleground
   - PlayerCopy
-  - 
+  - Particles
   - 
   - 
   - 
@@ -54,6 +54,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 14500249
+    locked: 0
+  - name: Particles
+    uniqueID: 521221439
     locked: 0
   - name: Terrain
     uniqueID: 2340310893
