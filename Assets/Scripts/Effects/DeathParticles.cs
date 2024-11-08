@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class DeathParticles : MonoBehaviour
-{
+public class DeathParticles : MonoBehaviour{
     public static DeathParticles Instance;
 
     [SerializeField] private ParticleSystem particlePrefab;

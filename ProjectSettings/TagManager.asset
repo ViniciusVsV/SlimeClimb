@@ -9,6 +9,7 @@ TagManager:
   - CopyDetector
   - Obstacle
   - Portal
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

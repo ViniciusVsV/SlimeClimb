@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class JumpParticles : MonoBehaviour
-{
+public class JumpParticles : MonoBehaviour{
     public static JumpParticles Instance;
 
     [SerializeField] private ParticleSystem particlePrefab;

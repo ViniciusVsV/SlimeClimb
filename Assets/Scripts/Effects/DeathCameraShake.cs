@@ -6,10 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class DeathCameraShake : MonoBehaviour
-{
+public class DeathCameraShake : MonoBehaviour{
     public static DeathCameraShake Instance;
-
+    
     [SerializeField] private CinemachineImpulseSource cinemachineImpulseSource;
 
     void Start(){
