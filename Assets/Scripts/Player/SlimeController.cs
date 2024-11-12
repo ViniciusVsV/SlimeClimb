@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class CharacterController : MonoBehaviour{
+public class SlimeController : MonoBehaviour{
     [Header("Character")]
     [Header("Jumping")]
     [SerializeField] protected float jumpSpeed;

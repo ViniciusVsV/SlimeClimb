@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class CopyController : CharacterController{
+public class CopyController : SlimeController{
     [Header("Copy")]
     public int copyId;
 

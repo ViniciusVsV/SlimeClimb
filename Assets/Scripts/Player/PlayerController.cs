@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class PlayerController : CharacterController{
+public class PlayerController : SlimeController{
     [Header("Player")]
     [Header("Division")]
     [SerializeField] GameObject playerCopyPrefab;
