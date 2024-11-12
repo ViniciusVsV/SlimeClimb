@@ -95,6 +95,6 @@ public class PauseMenuController : MonoBehaviour
     void HandleRestart()
     {
         if (Input.GetKeyDown(KeyCode.P))
-            SceneManager.LoadScene("Vinicius");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
