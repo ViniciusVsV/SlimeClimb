@@ -1,19 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PortalBehaviour : MonoBehaviour
 {
     private bool isTeleporting;
 
+    [SerializeField]
+    public string portalName;
+
+    [SerializeField]
+    private string portalDirection;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("PlayerCopy") && !isTeleporting)
+        if (!string.IsNullOrEmpty(portalDirection)) // Verifica se a direção está definida
         {
-            GameObject targetPortal = FindOtherPortal();
-            if (targetPortal != null)
+            if ((other.CompareTag("Player") || other.CompareTag("PlayerCopy")) && !isTeleporting)
             {
-                StartCoroutine(TeleportPlayer(other, targetPortal));
+                GameObject targetPortal = FindOtherPortal();
+                if (targetPortal != null)
+                {
+                    StartCoroutine(TeleportPlayer(other, targetPortal));
+                }
             }
         }
     }
@@ -23,7 +31,9 @@ public class PortalBehaviour : MonoBehaviour
         GameObject[] portals = GameObject.FindGameObjectsWithTag("Portal");
         foreach (GameObject portal in portals)
         {
-            if (portal != gameObject)
+            PortalBehaviour portalBehaviour = portal.GetComponent<PortalBehaviour>();
+            // Busca o portal com o nome que corresponde à direção
+            if (portalBehaviour != null && portalBehaviour.portalName == this.portalDirection)
             {
                 return portal;
             }
@@ -36,8 +46,9 @@ public class PortalBehaviour : MonoBehaviour
         isTeleporting = true;
         AudioController.instance.PlayPortalSound();
 
-        if(other.transform.parent != null)
-            other.transform.parent.position = transform.transform.position;
+        // Teleporta para a posição do portal de destino
+        if (other.transform.parent != null)
+            other.transform.parent.position = targetPortal.transform.position;
         else
             other.transform.position = targetPortal.transform.position;
 
