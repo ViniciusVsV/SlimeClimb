@@ -11,7 +11,13 @@ public class PlayerController : SlimeController{
     [Header("Division")]
     [SerializeField] GameObject playerCopyPrefab;
     [SerializeField] float sizeLimit;
-    
+
+    protected override void Start(){
+        base.Start();
+
+        slimeColor = Color.green;
+    }
+
     protected override void Update(){
         base.Update();
         

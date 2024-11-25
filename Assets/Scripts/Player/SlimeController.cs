@@ -16,6 +16,8 @@ public class SlimeController : MonoBehaviour{
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected Transform jumpParticlesPoint;
     [SerializeField] protected ParticleSystem slimeParticles;
+    [SerializeField] protected ParticleSystem speedParticles;
+    protected Color slimeColor;
 
     [Header("Objects")]
     [SerializeField] protected CinemachineImpulseSource impulseSource;
@@ -30,7 +32,7 @@ public class SlimeController : MonoBehaviour{
         rb = GetComponent<Rigidbody2D>();
 
         pauseMenuController = FindFirstObjectByType<PauseMenuController>();
-    }
+    }        
     
     protected virtual void Update(){
         if(pauseMenuController.isPaused)
@@ -63,22 +65,25 @@ public class SlimeController : MonoBehaviour{
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerJump"))
             yield return null;
 
-        isJumping = true;
-
         AudioController.instance.PlayJumpSound();
+
+        isJumping = true;
 
         rb.velocity = direction * jumpSpeed;
 
         animator.SetBool("isJumping", true);
 
-        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation, slimeColor);
+        speedParticles.Play();
+        slimeParticles.Stop();
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
 
         while (rb.velocity != Vector2.zero)
             yield return null;
-
+        
         isJumping = false;
+        animator.SetBool("isJumping", false);
 
         AudioController.instance.PlayLandSound();
 
@@ -86,39 +91,48 @@ public class SlimeController : MonoBehaviour{
         if(nextRotation == -90f || nextRotation == 90f)
             impulseDirection.x = -0.02f;
         else
-            impulseDirection.y = -0.02f;
-        
+            impulseDirection.y = -0.02f;        
         impulseSource.GenerateImpulse(impulseDirection * jumpSpeed / 10);
-
-        animator.SetBool("isJumping", false);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
 
-        yield return new WaitForSeconds(0.1f);
-
-        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation, slimeColor);
+        speedParticles.Stop();
+        slimeParticles.Play();
     }
 
     protected void HandleParticleValues(){
         var main = slimeParticles.main;
         var shape =  slimeParticles.shape;
 
+        var main2 = speedParticles.main;
+        var shape2 = speedParticles.shape;
+
         if(transform.localScale.x == 1f){
             main.startSize = 0.1f;
             shape.radius = 0.53f;
             shape.position = new Vector3(0f, -0.17f, 0f);
+
+            main2.startSize = 0.1f;
+            shape2.radius = 0.45f;
         }
 
         else if(transform.localScale.x == 0.75f){
             main.startSize = 0.06f;
             shape.radius = 0.41f;
             shape.position = new Vector3(0f, -0.14f, 0f);
+
+            main2.startSize = 0.07f;
+            shape2.radius = 0.29f;
         }
 
         else{
             main.startSize = 0.03f;
             shape.radius = 0.29f;
             shape.position = new Vector3(0f, -0.11f, 0f);
+
+            main2.startSize = 0.04f;
+            shape2.radius = 0.2f;
         }
     }
 
@@ -133,6 +147,7 @@ public class SlimeController : MonoBehaviour{
             if(gameObject.CompareTag("Player")){
                 Destroy(spriteRenderer.gameObject);
                 Destroy(slimeParticles.gameObject);
+                Destroy(speedParticles.gameObject);
 
                 rb.velocity = Vector2.zero;
                 

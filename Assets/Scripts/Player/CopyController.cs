@@ -28,11 +28,14 @@ public class CopyController : SlimeController{
 
         copyId = GameObject.FindGameObjectsWithTag("PlayerCopy").Length;
 
-        Color randomColor = new Color(Random.value, Random.value, Random.value, (float) 205 / 255);
-        spriteRenderer.color = randomColor;
+        slimeColor = new Color(Random.value, Random.value, Random.value, (float) 205 / 255);
+        spriteRenderer.color = slimeColor;
 
         var main = slimeParticles.main;
-        main.startColor = randomColor;
+        main.startColor = slimeColor;
+
+        main = speedParticles.main;
+        main.startColor = slimeColor;
 
         HandleParticleValues();
     }
@@ -56,6 +59,9 @@ public class CopyController : SlimeController{
         rb.velocity = direction * jumpSpeed;
         animator.SetBool("isJumping", true);
 
+        speedParticles.Play();
+        slimeParticles.Stop();
+
         while (rb.velocity != Vector2.zero)
             yield return null;
 
@@ -65,6 +71,8 @@ public class CopyController : SlimeController{
         triggerCollider.enabled = true;
 
         isJumping = false;
+        animator.SetBool("isJumping", false);
+
         AudioController.instance.PlayLandSound();
 
         Vector3 impulseDirection = Vector3.zero;
@@ -72,14 +80,13 @@ public class CopyController : SlimeController{
             impulseDirection.x = -0.02f;
         else
             impulseDirection.y = -0.02f;
-        
         impulseSource.GenerateImpulse(impulseDirection * jumpSpeed / 10);
-
-        animator.SetBool("isJumping", false);
 
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, nextRotation));
 
-        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation);
+        JumpParticles.Instance.PlayParticles(jumpParticlesPoint.position, transform.localScale, transform.rotation, slimeColor);
+        speedParticles.Stop();
+        slimeParticles.Play();
     }
 
     void HandleTrigger(){

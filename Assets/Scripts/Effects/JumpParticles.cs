@@ -14,10 +14,15 @@ public class JumpParticles : MonoBehaviour{
         Instance = this;
     }
 
-    public void PlayParticles(Vector3 position, Vector3 scale, Quaternion rotation){
+    public void PlayParticles(Vector3 position, Vector3 scale, Quaternion rotation, Color color){
         ParticleSystem newParticle = Instantiate(particlePrefab, position, rotation);
 
         newParticle.transform.localScale = scale;
+
+        if(color != Color.green){        
+            var main = newParticle.main;
+            main.startColor = color;
+        }
 
         newParticle.Play();
 
