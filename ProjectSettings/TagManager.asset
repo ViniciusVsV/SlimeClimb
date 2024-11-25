@@ -10,6 +10,7 @@ TagManager:
   - Obstacle
   - Portal
   - MovingPlatform
+  - Camera
   layers:
   - Default
   - TransparentFX

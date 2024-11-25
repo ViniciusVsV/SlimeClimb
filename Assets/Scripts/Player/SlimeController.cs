@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Cinemachine;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -134,6 +133,9 @@ public class SlimeController : MonoBehaviour{
             if(gameObject.CompareTag("Player")){
                 Destroy(spriteRenderer.gameObject);
                 Destroy(slimeParticles.gameObject);
+
+                rb.velocity = Vector2.zero;
+                
                 enabled = false;
             }
             else
