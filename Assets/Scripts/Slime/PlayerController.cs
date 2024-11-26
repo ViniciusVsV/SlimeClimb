@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -11,6 +12,7 @@ public class PlayerController : SlimeController{
     [Header("Division")]
     [SerializeField] GameObject playerCopyPrefab;
     [SerializeField] float sizeLimit;
+    public bool canDivide;
 
     protected override void Start(){
         base.Start();
@@ -25,7 +27,7 @@ public class PlayerController : SlimeController{
     }
 
     void HandleDivision(){
-        if (transform.localScale.x <= sizeLimit)
+        if (transform.localScale.x <= sizeLimit || !canDivide)
             return;
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -48,6 +50,9 @@ public class PlayerController : SlimeController{
 
         CopyController copyController = newCopy.GetComponent<CopyController>();
 
+        if(hasLight)
+            copyController.transform.GetChild(0).gameObject.SetActive(true);
+
         transform.localScale -= new Vector3(0.25f, 0.25f);
         newCopy.transform.localScale = transform.localScale;
     
@@ -62,20 +67,16 @@ public class PlayerController : SlimeController{
         float rotationZ = transform.eulerAngles.z;
 
         if(rotationZ == 90f){
-            Debug.Log("Rotação é 90");
             moveDirection.x = 1;
         }
         else if(rotationZ == 270f){
             moveDirection.x = -1;
-            Debug.Log("Rotação é -90");
         }
         else if(rotationZ == 0f){
             moveDirection.y = -1;
-            Debug.Log("Rotação é 0");
         }
         else if(rotationZ == 180f){
             moveDirection.y = 1;
-            Debug.Log("Rotação é 180");
         }
         
         rb.velocity = moveDirection * jumpSpeed;

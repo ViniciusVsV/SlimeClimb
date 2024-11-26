@@ -27,11 +27,13 @@ public class SlimeController : MonoBehaviour{
     [Header("Booleans")]
     public bool isJumping;
     public bool hasKey;
+    public bool hasLight;
     
     protected virtual void Start(){
         rb = GetComponent<Rigidbody2D>();
 
         pauseMenuController = FindFirstObjectByType<PauseMenuController>();
+        
     }        
     
     protected virtual void Update(){

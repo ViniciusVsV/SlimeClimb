@@ -38,6 +38,9 @@ public class CopyController : SlimeController{
         main.startColor = slimeColor;
 
         HandleParticleValues();
+
+        if(hasLight)
+            transform.GetChild(0).gameObject.SetActive(true);
     }
 
     protected override void Update(){
