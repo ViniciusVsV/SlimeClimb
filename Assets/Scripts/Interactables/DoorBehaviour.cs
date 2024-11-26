@@ -18,6 +18,7 @@ public class Door : MonoBehaviour
             {
                 AudioController.instance.PlayDoorSound();
                 Destroy(gameObject);
+                playerController.hasKey = false;
             }
     }
 }

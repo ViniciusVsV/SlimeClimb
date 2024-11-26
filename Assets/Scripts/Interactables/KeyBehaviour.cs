@@ -16,7 +16,8 @@ public class KeyBehaviour : MonoBehaviour
         {
             playerController.hasKey = true;
             AudioController.instance.PlayCollectSound();
-            Destroy(gameObject);     
+            Destroy(gameObject);
+            
         }
     }
 }
