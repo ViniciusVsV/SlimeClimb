@@ -10,6 +10,7 @@ public class CheckpointController : MonoBehaviour{
     private Vector3 savedPosition;
     private Quaternion savedRotation;
     private CinemachineVirtualCamera savedCamera;
+    private GameObject[] savedObjects;
 
     void Update(){
         if(Input.GetKeyDown(KeyCode.P)){
@@ -17,10 +18,11 @@ public class CheckpointController : MonoBehaviour{
         }
     }
 
-    public void SaveTransform(Vector3 newPosition, Quaternion newRotation, CinemachineVirtualCamera newCamera){
+    public void SaveData(Vector3 newPosition, Quaternion newRotation, CinemachineVirtualCamera newCamera, GameObject[] newObjects){
         savedPosition = newPosition;
         savedRotation = newRotation;
         savedCamera = newCamera;
+        savedObjects = newObjects;
     }
 
     private void Reset(){
@@ -36,6 +38,10 @@ public class CheckpointController : MonoBehaviour{
             camera.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         }
         savedCamera.Priority = 10;
+
+        foreach(GameObject savedObject in savedObjects){
+            savedObject.SetActive(true);
+        }
 
         Instantiate(playerPrefab, savedPosition, savedRotation);
     }

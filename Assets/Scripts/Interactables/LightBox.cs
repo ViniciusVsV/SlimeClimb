@@ -9,6 +9,7 @@ public class LightnBox : MonoBehaviour{
     [SerializeField] private Light2D globalLight;
     [SerializeField] private float duration;
     [SerializeField] private bool activate;
+    [SerializeField] private float targetIntensity;
     private GameObject playerLight;
     private GameObject copyLight;
 
@@ -25,8 +26,6 @@ public class LightnBox : MonoBehaviour{
 
                 playerLight.SetActive(true);
                 copyLight.SetActive(true);
-
-                StartCoroutine(ReduceLight());
             }
             else{
                 GameObject aux = other.transform.GetChild(0).gameObject;
@@ -35,12 +34,14 @@ public class LightnBox : MonoBehaviour{
                 playerLight.SetActive(false);
                 copyLight.SetActive(false);
             }
+
+            StartCoroutine(ChangeLight());
         }
     }
 
-    IEnumerator ReduceLight(){
+    IEnumerator ChangeLight(){
         float intensity = globalLight.intensity;
-        if(intensity == 0f)
+        if(intensity == targetIntensity)
             yield break;
 
         float time = 0f;
@@ -48,11 +49,11 @@ public class LightnBox : MonoBehaviour{
         while(time < duration){
             time += Time.deltaTime;
 
-            globalLight.intensity = Mathf.Lerp(intensity, 0f, time / duration);
+            globalLight.intensity = Mathf.Lerp(intensity, targetIntensity, time / duration);
     
             yield return null;
         }
 
-        globalLight.intensity = 0f;
+        globalLight.intensity = targetIntensity;
     }
 }

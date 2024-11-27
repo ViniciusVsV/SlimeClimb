@@ -159,4 +159,8 @@ public class SlimeController : MonoBehaviour{
                 Destroy(gameObject);
         }
     }
+
+    public void SpeedUp(float targetSpeed){
+        jumpSpeed = targetSpeed;
+    }
 }

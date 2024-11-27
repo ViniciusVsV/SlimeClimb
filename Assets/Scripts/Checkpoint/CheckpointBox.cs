@@ -7,6 +7,7 @@ public class CheckpointBox : MonoBehaviour{
     [SerializeField] private Vector3 savedPosition;
     [SerializeField] private Quaternion savedRotation;
     [SerializeField] private CinemachineVirtualCamera savedCamera;
+    [SerializeField] private GameObject[] savedObjects;
     private CheckpointController checkpointController;
     private BoxCollider2D trigger;
 
@@ -18,7 +19,7 @@ public class CheckpointBox : MonoBehaviour{
 
     private void OnTriggerEnter2D(Collider2D other){    
         if(other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
-            checkpointController.SaveTransform(savedPosition, savedRotation, savedCamera);
+            checkpointController.SaveData(savedPosition, savedRotation, savedCamera, savedObjects);
 
             trigger.enabled = false;
         }

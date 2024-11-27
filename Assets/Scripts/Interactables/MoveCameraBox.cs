@@ -6,12 +6,17 @@ using UnityEngine;
 public class MoveCameraBox : MonoBehaviour{
     [SerializeField] CinemachineVirtualCamera cam1;
     [SerializeField] CinemachineVirtualCamera cam2;
-    public CinemachineVirtualCamera currentCamera;
-    public CinemachineVirtualCamera nextCamera;
+    [SerializeField] private float transitionDuration;
+    private CinemachineVirtualCamera currentCamera;
+    private CinemachineVirtualCamera nextCamera;
+    private CinemachineBrain cinemachineBrain;
 
     void Start(){
         currentCamera = cam1;
         nextCamera = cam2;
+
+        cinemachineBrain = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineBrain>();
+
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -27,6 +32,8 @@ public class MoveCameraBox : MonoBehaviour{
             currentCamera = nextCamera;
             nextCamera = aux;
         }
+
+        cinemachineBrain.m_DefaultBlend.m_Time = transitionDuration;
 
         aux = currentCamera;
 

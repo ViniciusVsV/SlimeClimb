@@ -2,21 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyBehaviour : MonoBehaviour
-{
-    private PlayerController playerController;
-
-    void Start(){
-        playerController = FindFirstObjectByType<PlayerController>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("PlayerCopy"))
-        {
+public class KeyBehaviour : MonoBehaviour{
+    private void OnTriggerEnter2D(Collider2D other){
+        if (other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
+            PlayerController playerController = FindFirstObjectByType<PlayerController>();
             playerController.hasKey = true;
+            
             AudioController.instance.PlayCollectSound();
-            Destroy(gameObject);     
+            
+            gameObject.SetActive(false);   
         }
     }
 }

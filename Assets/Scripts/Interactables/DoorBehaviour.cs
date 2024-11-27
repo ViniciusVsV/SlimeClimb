@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
-{
-    private PlayerController playerController;
+public class Door : MonoBehaviour{
+    [SerializeField] private bool takesKey;
 
-    void Start()
-    {
-        playerController = FindFirstObjectByType<PlayerController>();
-    }
+    private void OnTriggerEnter2D(Collider2D other){
+        if (other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
+            PlayerController playerController = FindFirstObjectByType<PlayerController>();
+         
+            if(playerController.hasKey){
+                AudioController.instance.PlayDoorSound();   
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("PlayerCopy"))
-            if (playerController.hasKey)
-            {
-                AudioController.instance.PlayDoorSound();
-                Destroy(gameObject);
+                if(takesKey)
+                    playerController.hasKey = false;
+
+                gameObject.SetActive(false);
             }
+        }
     }
 }
