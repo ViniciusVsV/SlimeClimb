@@ -9,6 +9,8 @@ TagManager:
   - CopyDetector
   - Obstacle
   - Portal
+  - MusicSlider
+  - SFXSlider
   layers:
   - Default
   - TransparentFX

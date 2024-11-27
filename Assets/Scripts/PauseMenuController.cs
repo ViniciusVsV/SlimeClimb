@@ -7,86 +7,84 @@ public class PauseMenuController : MonoBehaviour
 {
     public static PauseMenuController Instance;
 
-    [SerializeField]
-    GameObject menuPause;
-
-    [SerializeField]
-    GameObject menuConfig;
-
-    [SerializeField]
-    GameObject menuControles;
-
     public bool isPaused;
+    public bool configMenu;
+    public bool controlsMenu;
+
+    [SerializeField]
+    Animator pauseAnimator;
 
     private void Start()
     {
         Instance = this;
-
-        menuConfig.SetActive(false);
-        menuControles.SetActive(false);
-        menuPause.SetActive(false);
 
     }
 
     private void Update(){
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(isPaused)
+            isPaused = pauseAnimator.GetBool("Pausado");
+            configMenu = pauseAnimator.GetBool("Configuracoes");
+            controlsMenu = pauseAnimator.GetBool("Controles");
+
+
+            if (controlsMenu)
+            {
+                DesativarMenu("Controles");
+            }
+            else if (configMenu)
+            {
+                DesativarMenu("Configuracoes");
+            }
+            else if (isPaused)
+            {
                 Continuar();
+            }
             else
+            {
                 PauseMenu();
+            }
         }
     }
 
     public void PauseMenu()
     {
-        menuPause.SetActive(true);
+        AtivarMenu("Pausado");
         Time.timeScale = 0;
-
-        isPaused = true;
+        AudioController.instance.PlayButtonClip();
     }
 
     public void Continuar()
     {
-        menuPause.SetActive(false);
+        DesativarMenu("Pausado");
         Time.timeScale = 1;
-
-        isPaused = false;
+        AudioController.instance.PlayButtonClip();
     }
 
     public void Reiniciar()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
-    }
-
-    public void Configuracao()
-    {
-        menuConfig.SetActive(true);
-        menuPause.SetActive(false);
+        AudioController.instance.PlayButtonClip();
     }
 
     public void MenuPrincipal()
     {
         SceneManager.LoadScene("Menu");
         Time.timeScale = 1;
+        AudioController.instance.PlayButtonClip();
     }
 
-    public void ConfigControles()
+    // Funções para transição de Menu
+    public void AtivarMenu(string menu)
     {
-        menuConfig.SetActive(false);
-        menuControles.SetActive(true);
+        pauseAnimator.SetBool(menu, true);
+        AudioController.instance.PlayButtonClip();
     }
 
-    public void ConfigVoltar()
+    public void DesativarMenu(string menu)
     {
-        menuConfig.SetActive(false);
-        menuPause.SetActive(true);
-    }
-
-    public void ControlesVoltar()
-    {
-        menuConfig.SetActive(true);
-        menuControles.SetActive(false);
+        pauseAnimator.SetBool(menu, false);
+        AudioController.instance.PlayButtonClip();
     }
 }
