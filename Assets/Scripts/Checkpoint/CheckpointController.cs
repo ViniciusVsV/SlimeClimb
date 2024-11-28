@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class CheckpointController : MonoBehaviour{
     [SerializeField] GameObject playerPrefab;
-    [SerializeField] MoveCameraBox moveCameraBox;
     private Vector3 savedPosition;
     private Quaternion savedRotation;
     private CinemachineVirtualCamera savedCamera;
