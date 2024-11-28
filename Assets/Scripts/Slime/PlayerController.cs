@@ -60,6 +60,8 @@ public class PlayerController : SlimeController{
 
         StartCoroutine(copyController.JumpStart(launchDirection, rotation, nextRotation));
 
+        counterController.IncreaseDivisions();
+
         if(isJumping)
             return;
         

@@ -11,6 +11,11 @@ public class CheckpointController : MonoBehaviour{
     private Quaternion savedRotation;
     private CinemachineVirtualCamera savedCamera;
     private GameObject[] savedObjects;
+    private CounterController counterController;
+
+    void Start(){
+        counterController = FindFirstObjectByType<CounterController>();
+    }
 
     void Update(){
         if(Input.GetKeyDown(KeyCode.P)){
@@ -23,6 +28,8 @@ public class CheckpointController : MonoBehaviour{
         savedRotation = newRotation;
         savedCamera = newCamera;
         savedObjects = newObjects;
+
+        counterController.ResetSection();
     }
 
     private void Reset(){
@@ -44,5 +51,7 @@ public class CheckpointController : MonoBehaviour{
         }
 
         Instantiate(playerPrefab, savedPosition, savedRotation);
+
+        counterController.IncreaseResets();
     }
 }

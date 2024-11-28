@@ -23,6 +23,7 @@ public class SlimeController : MonoBehaviour{
     [SerializeField] protected CinemachineImpulseSource impulseSource;
     [SerializeField] protected Animator animator;
     protected PauseMenuController pauseMenuController;
+    protected CounterController counterController;
 
     [Header("Booleans")]
     public bool isJumping;
@@ -33,7 +34,7 @@ public class SlimeController : MonoBehaviour{
         rb = GetComponent<Rigidbody2D>();
 
         pauseMenuController = FindFirstObjectByType<PauseMenuController>();
-        
+        counterController = FindFirstObjectByType<CounterController>();
     }        
     
     protected virtual void Update(){
@@ -70,6 +71,8 @@ public class SlimeController : MonoBehaviour{
         AudioController.instance.PlayJumpSound();
 
         isJumping = true;
+
+        counterController.IncreaseJumps();
 
         rb.velocity = direction * jumpSpeed;
 
@@ -158,6 +161,8 @@ public class SlimeController : MonoBehaviour{
             }
             else
                 Destroy(gameObject);
+
+            counterController.IncreaseDeaths();
         }
     }
 
