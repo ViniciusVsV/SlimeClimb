@@ -14,6 +14,9 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField]
     Animator pauseAnimator;
 
+    [SerializeField]
+    Animator estatisticsAnimator;
+
     private void Start()
     {
         Instance = this;
@@ -34,7 +37,7 @@ public class PauseMenuController : MonoBehaviour
             }
             else if (configMenu)
             {
-                DesativarMenu("Configuracoes");
+                VoltarConfigs();
             }
             else if (isPaused)
             {
@@ -52,6 +55,7 @@ public class PauseMenuController : MonoBehaviour
         AtivarMenu("Pausado");
         Time.timeScale = 0;
         AudioController.instance.PlayButtonClip();
+        estatisticsAnimator.SetBool("Ativado", true);
     }
 
     public void Continuar()
@@ -59,6 +63,7 @@ public class PauseMenuController : MonoBehaviour
         DesativarMenu("Pausado");
         Time.timeScale = 1;
         AudioController.instance.PlayButtonClip();
+        estatisticsAnimator.SetBool("Ativado", false);
     }
 
     public void Reiniciar()
@@ -66,6 +71,18 @@ public class PauseMenuController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
         AudioController.instance.PlayButtonClip();
+    }
+
+    public void Configs()
+    {
+        AtivarMenu("Configuracoes");
+        estatisticsAnimator.SetBool("Ativado", false);
+    }
+
+    public void VoltarConfigs()
+    {
+        DesativarMenu("Configuracoes");
+        estatisticsAnimator.SetBool("Ativado", true);
     }
 
     public void MenuPrincipal()
