@@ -11,6 +11,8 @@ TagManager:
   - Portal
   - MovingPlatform
   - Camera
+  - MusicSlider
+  - SFXSlider
   layers:
   - Default
   - TransparentFX

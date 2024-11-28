@@ -2,56 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
     [SerializeField]
-    GameObject menuPrincipal;
-
-    [SerializeField]
-    GameObject menuConfig;
-
-    [SerializeField]
-    GameObject menuControles;
-
-    private void Start()
-    {
-        menuConfig.SetActive(false);
-        menuControles.SetActive(false);
-
-    }
-
-    public void IniciarJogo()
-    {
-        SceneManager.LoadScene("Vinicius");
-    }
-
-    public void Configuracao()
-    {
-        menuConfig.SetActive(true);
-        menuPrincipal.SetActive(false);
-    }
+    Animator menuAnimator;
 
     public void SairJogo()
     {
         Application.Quit();
     }
 
-    public void ConfigControles()
+    // Funções para transição de Menu
+    public void AtivarMenu(string menu)
     {
-        menuConfig.SetActive(false);
-        menuControles.SetActive(true);
+        menuAnimator.SetBool(menu, true);
+        AudioController.instance.PlayButtonClip();
     }
 
-    public void ConfigVoltar()
+    public void DesativarMenu(string menu)
     {
-        menuConfig.SetActive(false);
-        menuPrincipal.SetActive(true);
+        menuAnimator.SetBool(menu, false);
+        AudioController.instance.PlayButtonClip();
     }
 
-    public void ControlesVoltar()
+    // Funções do Seletor de Fase
+    public void CarregarFase(string nomeCena)
     {
-        menuConfig.SetActive(true);
-        menuControles.SetActive(false);
+        SceneManager.LoadScene(nomeCena);
     }
+
 }
