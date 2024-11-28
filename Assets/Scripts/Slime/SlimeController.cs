@@ -150,6 +150,7 @@ public class SlimeController : MonoBehaviour{
                 Destroy(spriteRenderer.gameObject);
                 Destroy(slimeParticles.gameObject);
                 Destroy(speedParticles.gameObject);
+                GetComponent<BoxCollider2D>().enabled = false;
 
                 rb.velocity = Vector2.zero;
                 

@@ -52,6 +52,8 @@ public class PauseMenuController : MonoBehaviour
 
     public void PauseMenu()
     {
+        isPaused = true;
+
         AtivarMenu("Pausado");
         Time.timeScale = 0;
         AudioController.instance.PlayButtonClip();
@@ -60,6 +62,8 @@ public class PauseMenuController : MonoBehaviour
 
     public void Continuar()
     {
+        isPaused = false;
+
         DesativarMenu("Pausado");
         Time.timeScale = 1;
         AudioController.instance.PlayButtonClip();
