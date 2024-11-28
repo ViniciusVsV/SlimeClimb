@@ -67,16 +67,16 @@ public class PlayerController : SlimeController{
         float rotationZ = transform.eulerAngles.z;
 
         if(rotationZ == 90f){
-            moveDirection.x = 1;
+            moveDirection = Vector2.right;
         }
         else if(rotationZ == 270f){
-            moveDirection.x = -1;
+            moveDirection = Vector2.left;
         }
         else if(rotationZ == 0f){
-            moveDirection.y = -1;
+            moveDirection = Vector2.down;
         }
         else if(rotationZ == 180f){
-            moveDirection.y = 1;
+            moveDirection = Vector2.up;
         }
         
         rb.velocity = moveDirection * jumpSpeed;
