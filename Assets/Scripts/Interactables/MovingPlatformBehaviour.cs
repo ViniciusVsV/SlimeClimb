@@ -42,6 +42,8 @@ public class MovingPlatformBehaviour : MonoBehaviour{
         isWaiting = false;
     }
 
+    //Tentar criar um trigger apenas para detectar quando o player sai ou entra
+
     private void OnCollisionEnter2D(Collision2D other) {
         other.transform.SetParent(transform);
     }

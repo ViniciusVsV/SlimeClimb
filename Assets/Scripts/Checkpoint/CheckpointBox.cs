@@ -4,10 +4,10 @@ using Cinemachine;
 using UnityEngine;
 
 public class CheckpointBox : MonoBehaviour{
-    [SerializeField] private Vector3 savedPosition;
-    [SerializeField] private Quaternion savedRotation;
-    [SerializeField] private CinemachineVirtualCamera savedCamera;
-    [SerializeField] private GameObject[] savedObjects;
+    [SerializeField] public Vector3 savedPosition;
+    [SerializeField] public Quaternion savedRotation;
+    [SerializeField] public CinemachineVirtualCamera savedCamera;
+    [SerializeField] public GameObject[] savedObjects;
     private CheckpointController checkpointController;
     private BoxCollider2D trigger;
 

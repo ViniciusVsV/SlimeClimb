@@ -9794,7 +9794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d09384be113f6d4eb2db25516f97ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 15
+  jumpSpeed: 11
   spriteRenderer: {fileID: 1898854072991867856}
   jumpParticlesPoint: {fileID: 1765182626256706884}
   slimeParticles: {fileID: 4074786049671483351}
@@ -9806,7 +9806,7 @@ MonoBehaviour:
   hasLight: 0
   playerCopyPrefab: {fileID: 3469619942998949674, guid: 151d9b3138d9763449dc5986bb42872b, type: 3}
   sizeLimit: 0.5
-  canDivide: 1
+  canDivide: 0
 --- !u!50 &6106109404726361707
 Rigidbody2D:
   serializedVersion: 4

@@ -64,6 +64,10 @@ public class PlayerController : SlimeController{
 
         if(isJumping)
             return;
+
+        //Se tem parent
+        //Força o parent
+        //Retorna   (possivel solução para quando ele divide estando na plataforma)
         
         Vector2 moveDirection = Vector2.zero;
         float rotationZ = transform.eulerAngles.z;

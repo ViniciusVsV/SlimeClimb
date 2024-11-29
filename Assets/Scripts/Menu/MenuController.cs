@@ -8,6 +8,8 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField]
     Animator menuAnimator;
+    [SerializeField]
+    LoadCheckpoint loadCheckpoint;
 
     public void SairJogo()
     {
@@ -28,9 +30,11 @@ public class MenuController : MonoBehaviour
     }
 
     // Funções do Seletor de Fase
-    public void CarregarFase(string nomeCena)
+    public void CarregarFase(int index)
     {
-        SceneManager.LoadScene(nomeCena);
+        loadCheckpoint.index = index;
+
+        SceneManager.LoadScene("Levels");
     }
 
 }

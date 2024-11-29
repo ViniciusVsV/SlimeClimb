@@ -22,6 +22,13 @@ public class CheckpointController : MonoBehaviour{
         }
     }
 
+    public void SaveStartPosition(Vector3 newPosition, Quaternion newRotation, CinemachineVirtualCamera newCamera, GameObject[] newObjects){
+        savedPosition = newPosition;
+        savedRotation = newRotation;
+        savedCamera = newCamera;
+        savedObjects = newObjects;
+    }
+
     public void SaveData(Vector3 newPosition, Quaternion newRotation, CinemachineVirtualCamera newCamera, GameObject[] newObjects){
         savedPosition = newPosition;
         savedRotation = newRotation;
@@ -31,7 +38,21 @@ public class CheckpointController : MonoBehaviour{
         counterController.ResetSection();
     }
 
-    private void Reset(){
+    public void StartPosition(){
+        GameObject[] cameras = GameObject.FindGameObjectsWithTag("Camera");
+        foreach(GameObject camera in cameras){
+            camera.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        }
+        savedCamera.Priority = 10;
+
+        foreach(GameObject savedObject in savedObjects){
+            savedObject.SetActive(true);
+        }
+
+        Instantiate(playerPrefab, savedPosition, savedRotation);
+    }
+
+    void Reset(){
         GameObject player = GameObject.FindWithTag("Player");
         GameObject[] copies = GameObject.FindGameObjectsWithTag("PlayerCopy");
 
