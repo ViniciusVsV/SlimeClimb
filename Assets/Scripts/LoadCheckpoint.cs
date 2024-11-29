@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,10 +25,9 @@ public class LoadCheckpoint : MonoBehaviour{
 
     public void Load(){
         checkpoints = FindObjectsOfType<CheckpointBox>();
-        CheckpointBox aux = checkpoints[index];
+        checkpoints = checkpoints.OrderBy(c => c.id).ToArray();
 
-        Debug.Log(checkpoints.Length);
-        Debug.Log("Carregando a checkpoint no indice: " + index);
+        CheckpointBox aux = checkpoints[index];
 
         Vector3 newPos = aux.savedPosition;
         Quaternion newRot = aux.savedRotation;
@@ -38,6 +38,8 @@ public class LoadCheckpoint : MonoBehaviour{
 
         checkpointController.SaveStartPosition(newPos, newRot, newCam, newObjcts);
         checkpointController.StartPosition();
+
+        //Fazer tratamento dos casos
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode){

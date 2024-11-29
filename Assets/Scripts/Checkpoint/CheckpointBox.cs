@@ -10,6 +10,7 @@ public class CheckpointBox : MonoBehaviour{
     [SerializeField] public GameObject[] savedObjects;
     private CheckpointController checkpointController;
     private BoxCollider2D trigger;
+    public int id;
 
     void Start(){
         trigger = GetComponent<BoxCollider2D>();
