@@ -29,6 +29,7 @@ public class SlimeController : MonoBehaviour{
     public bool isJumping;
     public bool hasKey;
     public bool hasLight;
+    public bool inputsBlocked;
     
     protected virtual void Start(){
         rb = GetComponent<Rigidbody2D>();
@@ -38,7 +39,7 @@ public class SlimeController : MonoBehaviour{
     }        
     
     protected virtual void Update(){
-        if(pauseMenuController.isPaused)
+        if(pauseMenuController.isPaused || inputsBlocked)
             return;
 
         HandleJumping();
@@ -168,5 +169,9 @@ public class SlimeController : MonoBehaviour{
 
     public void SpeedUp(float targetSpeed){
         jumpSpeed = targetSpeed;
+    }
+
+    public float GetJumpSpeed(){
+        return jumpSpeed;
     }
 }
