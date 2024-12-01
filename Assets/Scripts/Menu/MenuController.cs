@@ -8,8 +8,11 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField]
     Animator menuAnimator;
-    [SerializeField]
     LoadCheckpoint loadCheckpoint;
+
+    void Start(){
+        loadCheckpoint = FindFirstObjectByType<LoadCheckpoint>();
+    }
 
     public void SairJogo()
     {
@@ -36,5 +39,4 @@ public class MenuController : MonoBehaviour
 
         SceneManager.LoadScene("Levels");
     }
-
 }
