@@ -174,4 +174,8 @@ public class SlimeController : MonoBehaviour{
     public float GetJumpSpeed(){
         return jumpSpeed;
     }
+
+    public void SetJumpSpeed(float newSpeed){
+        jumpSpeed = newSpeed;
+    }
 }
