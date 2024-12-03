@@ -12,12 +12,16 @@ public class CheckpointController : MonoBehaviour{
     private GameObject[] savedObjects;
     private CounterController counterController;
 
+    public bool canRestart;
+
     void Start(){
         counterController = FindFirstObjectByType<CounterController>();
+
+        canRestart = true;
     }
 
     void Update(){
-        if(Input.GetKeyDown(KeyCode.P)){
+        if(canRestart && Input.GetKeyDown(KeyCode.P)){
             Reset();
         }
     }

@@ -47,6 +47,10 @@ public class EndSceneBox : MonoBehaviour{
     IEnumerator EndCutscene(GameObject other, SlimeController slimeController){
         hasActivated = true;
 
+        //Impedir reset no checkpoint
+        CheckpointController checkpointController = FindFirstObjectByType<CheckpointController>();
+        checkpointController.canRestart = false;
+
         //Pegar valores iniciais
         initialCameraSize = vcam.m_Lens.OrthographicSize;
         initialSpeed = playerRb.velocity.magnitude;
