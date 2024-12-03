@@ -86,37 +86,33 @@ public class EndSceneBox : MonoBehaviour{
 
         //zerar parâmetros
         camRb.velocity = Vector2.zero;
-        noise.m_AmplitudeGain = 0f;
 
-        //quebrar a porta
+        //Aplicar maior tremor da câmera
+        noise.m_AmplitudeGain = maxShakeIntensity * 2f;
+        noise.m_FrequencyGain = 1f;
 
-
-        //aumentar rapidamente o tamanho da câmera
+        //aumentar rapidamente o tamanho da câmera e dimiuir o tremor da tela
         progress = 0f;
         while(progress < 1f){
-            progress = Mathf.Clamp01(progress + Time.deltaTime * 1.5f);
+            progress = Mathf.Clamp01(progress + Time.deltaTime * 1.2f);
 
             float newSize = Mathf.Lerp(minCameraSize, initialCameraSize, progress);
             vcam.m_Lens.OrthographicSize = newSize;
 
-            Debug.Log($"Progress: {progress}, NewSize: {newSize}");
+            float newIntensity = Mathf.Lerp(maxShakeIntensity * 2f, 0f, progress);
+            noise.m_AmplitudeGain = newIntensity;
 
             yield return null;
         }
 
-        
-
         //setar nova velocidade do player
         slimeController.SetJumpSpeed(maxSpeed);
 
-        //aparecer texto ("Voce está livre!")
+        //reativar movimento do personagem
+        slimeController.inputsBlocked = false;
 
-        //esperar um pouco e aparecer texto("...")
-
-        //esperar mais um pouco e aparecer texto("obrigado por jogar!)
-
-        //camera para de seguir o player
-
-        //aparece cena do menu final
+        //ativar parallax do background
+        ParallaxBackground parallaxBackground = FindFirstObjectByType<ParallaxBackground>();
+        parallaxBackground.activated = true;
     }
 }
