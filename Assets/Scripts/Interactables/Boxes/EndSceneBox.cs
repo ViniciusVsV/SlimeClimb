@@ -42,12 +42,12 @@ public class EndSceneBox : MonoBehaviour{
             if(!hasActivated){
                 AudioController.instance.PlayTunnelMusic();
                     
-                StartCoroutine(EndCutscene(other.gameObject, slimeController));
+                StartCoroutine(EndCutscene(slimeController));
             }
         }
     }   
 
-    IEnumerator EndCutscene(GameObject other, SlimeController slimeController){
+    IEnumerator EndCutscene(SlimeController slimeController){
         hasActivated = true;
 
         //Impedir reset no checkpoint
@@ -62,7 +62,7 @@ public class EndSceneBox : MonoBehaviour{
         slimes = FindObjectsOfType<SlimeController>();
         foreach(SlimeController slime in slimes)
             slime.inputsBlocked = true;
-
+        
         //câmera começa a ir para cima junto com o player
         Rigidbody2D camRb = cam.GetComponent<Rigidbody2D>();
         camRb.velocity = Vector2.up * initialSpeed;
