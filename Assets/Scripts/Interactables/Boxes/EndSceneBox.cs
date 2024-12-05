@@ -40,6 +40,10 @@ public class EndSceneBox : MonoBehaviour{
                 stop = true;
 
             if(!hasActivated)
+                if (AudioController.instance != null)
+                    {
+                        AudioController.instance.PlayTunnelMusic();
+                    }
                 StartCoroutine(EndCutscene(other.gameObject, slimeController));
         }
     }   
@@ -109,7 +113,7 @@ public class EndSceneBox : MonoBehaviour{
             yield return null;
         }
 
-        //setar nova velocidade do player
+        //setar nova velocidade do player   
         slimeController.SetJumpSpeed(maxSpeed);
 
         //reativar movimento do personagem
@@ -118,5 +122,7 @@ public class EndSceneBox : MonoBehaviour{
         //ativar parallax do background
         ParallaxBackground parallaxBackground = FindFirstObjectByType<ParallaxBackground>();
         parallaxBackground.activated = true;
+
+        AudioController.instance.PlayPreEndingMusic();
     }
 }
