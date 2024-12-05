@@ -8,6 +8,9 @@ using UnityEngine;
 public class Ending1Box: MonoBehaviour{
     [SerializeField] private GameObject cam;
     [SerializeField] private float textWaitTime;
+    [SerializeField] private GameObject text1;
+    [SerializeField] private GameObject text2;
+    [SerializeField] private GameObject endText;
     private Rigidbody2D camRb;
 
     void Start(){
@@ -25,14 +28,21 @@ public class Ending1Box: MonoBehaviour{
     IEnumerator Ending1(){
         yield return new WaitForSeconds(textWaitTime);
 
-        //aparecer o primeiro texto(Finalmente, liberdade!!)
+        //ativar primeiro texto e esperar até ele se desativar
+        text1.SetActive(true);
+        while(text1.activeSelf)
+            yield return null;
 
+        //esperar um pouco a mais de tempo
         yield return new WaitForSeconds(textWaitTime);
 
-        //aparecer o segundo texto(...)
+        //ativar o segundo texto e esperar até ele se desativar
+        text2.SetActive(true);
+        while(text2.activeSelf)
+            yield return null;
 
-        yield return new WaitForSeconds(textWaitTime);
-
-        //aparecer o ultimo texto (Obrigado por jogar!  :))
+        //esperar um pouco a mais de tempo
+        yield return new WaitForSeconds(textWaitTime * 2f);
+        endText.SetActive(true);
     }
 }
