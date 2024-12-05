@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136b9a4ef9d063b499bafd019a6e2521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 12
+  jumpSpeed: 19
   spriteRenderer: {fileID: 1406650278011738499}
   jumpParticlesPoint: {fileID: 7823983903877008528}
   slimeParticles: {fileID: 4465407283658554369}
