@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136b9a4ef9d063b499bafd019a6e2521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 19
+  jumpSpeed: 13
   spriteRenderer: {fileID: 1406650278011738499}
   jumpParticlesPoint: {fileID: 7823983903877008528}
   slimeParticles: {fileID: 4465407283658554369}
@@ -169,6 +169,7 @@ MonoBehaviour:
   isJumping: 0
   hasKey: 0
   hasLight: 0
+  inputsBlocked: 0
   copyId: 0
   triggerCollider: {fileID: 5517150344655675368}
   activateTriggerThreshold: 1
@@ -10083,7 +10084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9026486583094731263
 Transform:
   m_ObjectHideFlags: 0

@@ -113,7 +113,7 @@ public class EndSceneBox : MonoBehaviour{
         }
 
         //setar nova velocidade do player   
-        slimeController.SetJumpSpeed(maxSpeed);
+        slimeController.SetJumpSpeed(maxSpeed / 2);
 
         //reativar movimento do personagem
         slimeController.inputsBlocked = false;
@@ -121,7 +121,5 @@ public class EndSceneBox : MonoBehaviour{
         //ativar parallax do background
         ParallaxBackground parallaxBackground = FindFirstObjectByType<ParallaxBackground>();
         parallaxBackground.activated = true;
-
-        //AudioController.instance.PlayPreEndingMusic();
     }
 }
