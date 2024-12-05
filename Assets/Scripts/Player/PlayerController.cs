@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [Header("Booleans")]
     public bool isJumping;
     public bool hasKey;
+    public int keys = 0;
 
     void Start()
     {

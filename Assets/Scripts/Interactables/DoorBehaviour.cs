@@ -14,11 +14,12 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") || other.CompareTag("PlayerCopy"))
-            if (playerController.hasKey)
+            if (playerController.hasKey || playerController.keys >= 1)
             {
                 AudioController.instance.PlayDoorSound();
                 Destroy(gameObject);
                 playerController.hasKey = false;
+                playerController.keys--;
             }
     }
 }
