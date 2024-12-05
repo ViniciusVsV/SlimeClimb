@@ -8,7 +8,28 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField]
     Animator menuAnimator;
+
+    [SerializeField]
+    GameObject levelButtons;
+
+    public Button[] buttons;
     LoadCheckpoint loadCheckpoint;
+
+    private void Awake()
+    {
+        ButtonsToArray();
+        int desbloqueados = PlayerPrefs.GetInt("CheckPoints", 1);
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].interactable = false;
+        }
+
+        for (int i = 0;i < desbloqueados; i++)
+        {
+            buttons[i].interactable = true;
+        }
+    }
 
     void Start(){
         loadCheckpoint = FindFirstObjectByType<LoadCheckpoint>();
@@ -38,5 +59,15 @@ public class MenuController : MonoBehaviour
         loadCheckpoint.index = index;
 
         SceneManager.LoadScene("Levels");
+    }
+
+    void ButtonsToArray()
+    {
+        int childCount = levelButtons.transform.childCount;
+        buttons = new Button[childCount];
+
+        for (int i = 0; i < childCount; i++) {
+            buttons[i] = levelButtons.transform.GetChild(i).gameObject.GetComponent<Button>();
+        }
     }
 }
