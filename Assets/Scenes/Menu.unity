@@ -3273,6 +3273,7 @@ MonoBehaviour:
   copySound: {fileID: 8300000, guid: c9d4c544618fe6b4fa520ae3780cad11, type: 3}
   mergeSound: {fileID: 8300000, guid: 7853a1ff76e52d84e9466c21a018dc00, type: 3}
   landSound: {fileID: 8300000, guid: 76a916cc0f953104a995ad52ae337e71, type: 3}
+  textSound: {fileID: 8300000, guid: 97201087784dbac4caf59424c1ca5bf7, type: 3}
   checkpointSound: {fileID: 8300000, guid: f44583ae37606f94a994e65fa1ea9320, type: 3}
   backgroundMusic: {fileID: 8300000, guid: d921e3ca2c735b34d9aee86fa0cfc704, type: 3}
   endingMusic: {fileID: 8300000, guid: cecd70d2790889646baadf3b5e2145a5, type: 3}

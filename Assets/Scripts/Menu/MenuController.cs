@@ -29,6 +29,8 @@ public class MenuController : MonoBehaviour
 
     void Start(){
         loadCheckpoint = FindFirstObjectByType<LoadCheckpoint>();
+
+        AudioController.instance.PlayBackgroundMusic();
     }
 
     public void SairJogo()

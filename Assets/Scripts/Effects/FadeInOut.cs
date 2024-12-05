@@ -47,5 +47,7 @@ public class FadeInOut : MonoBehaviour{
 
         //Chamar o menu de estatisticas
         statisticsAnimator.SetBool("Ativado", true);
+
+        gameObject.SetActive(false);
     }
 }

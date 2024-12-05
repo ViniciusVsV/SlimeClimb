@@ -31,9 +31,6 @@ public class Ending1Box: MonoBehaviour{
 
             camRb.velocity = Vector2.up * other.GetComponent<SlimeController>().GetJumpSpeed();
 
-            if(AudioController.instance != null)
-                AudioController.instance.PlayEndingMusic();
-
             StartCoroutine(Ending1());    
         }
     }   

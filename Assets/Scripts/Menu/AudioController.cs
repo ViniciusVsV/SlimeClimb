@@ -74,6 +74,10 @@ public class AudioController : MonoBehaviour
         SetSFXVolume();
     }
 
+    public void PlayBackgroundMusic(){
+        musicASource.clip = backgroundMusic;
+    }
+
     public void SetMusicVolume()
     {
         float volume = musicSlider.value;
