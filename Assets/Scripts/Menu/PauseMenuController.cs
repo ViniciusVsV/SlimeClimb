@@ -91,9 +91,10 @@ public class PauseMenuController : MonoBehaviour
 
     public void MenuPrincipal()
     {
-        SceneManager.LoadScene("Menu");
         Time.timeScale = 1;
         AudioController.instance.PlayButtonClip();
+        AudioController.instance.PlayBackgroundMusic();
+        SceneManager.LoadScene("Menu");
     }
 
     // Funções para transição de Menu
