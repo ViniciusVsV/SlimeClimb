@@ -20,6 +20,9 @@ public class AudioController : MonoBehaviour
     public AudioClip mergeSound;
     public AudioClip landSound;
     public AudioClip backgroundMusic;
+    public AudioClip preEndingMusic;
+    public AudioClip endingMusic;
+    public AudioClip tunnelMusic;
     private AudioSource audioSource;
 
     [Header("UI Clips")]
@@ -42,20 +45,21 @@ public class AudioController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
+
         // Play na Musica
         musicASource.clip = backgroundMusic;
+        musicASource.loop = true;
         musicASource.Play();
 
         musicSlider = GameObject.FindGameObjectWithTag("MusicSlider").GetComponent<Slider>();
@@ -141,6 +145,54 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    public void StopMusic()
+    {
+        if (musicASource.isPlaying)
+        {
+            musicASource.Stop();
+        }
+    }
+
+    public void PlayTunnelMusic()
+    {
+        if (musicASource.isPlaying)
+        {
+            musicASource.Stop();
+        }
+
+        if (preEndingMusic != null)
+        {
+            musicASource.clip = tunnelMusic;
+            musicASource.Play();
+        }
+    }
+    public void PlayPreEndingMusic()
+    {
+        if (musicASource.isPlaying)
+        {
+            musicASource.Stop();
+        }
+
+        if (preEndingMusic != null)
+        {
+            musicASource.clip = preEndingMusic;
+            musicASource.Play();
+        }
+    }
+
+    public void PlayEndingMusic()
+    {
+        if (musicASource.isPlaying)
+        {
+            musicASource.Stop();
+        }
+
+        if (preEndingMusic != null)
+        {
+            musicASource.clip = endingMusic;
+            musicASource.Play();
+        }
+    }
     // Este método será chamado quando o script for ativado
     private void OnEnable()
     {
