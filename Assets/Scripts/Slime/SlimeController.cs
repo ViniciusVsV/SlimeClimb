@@ -150,6 +150,13 @@ public class SlimeController : MonoBehaviour{
 
             DeathCameraShake.Instance.GenerateImpulse();
 
+            counterController.IncreaseDeaths();
+
+            SlimeController[] allSlimes = FindObjectsOfType<SlimeController>();
+            if(allSlimes.Length - 1 < 1){
+                DeathMenuController.Instance.DeathMenu();
+            }
+
             if(gameObject.CompareTag("Player")){
                 Destroy(spriteRenderer.gameObject);
                 Destroy(slimeParticles.gameObject);
@@ -162,13 +169,6 @@ public class SlimeController : MonoBehaviour{
             }
             else
                 Destroy(gameObject);
-
-            counterController.IncreaseDeaths();
-
-            SlimeController[] allSlimes = FindObjectsOfType<SlimeController>();
-            if(allSlimes.Length == 0){
-                
-            }
         }
     }
 

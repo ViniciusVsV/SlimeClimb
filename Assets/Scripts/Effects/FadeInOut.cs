@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class FadeInOut : MonoBehaviour{
     [SerializeField] private float duration;
     [SerializeField] private Image image;
+    [SerializeField] private Animator statisticsAnimator;
 
     void OnEnable() {
         StartCoroutine(FadeRoutine());    
@@ -43,5 +44,8 @@ public class FadeInOut : MonoBehaviour{
 
         color.a = 0;
         image.color = color;
+
+        //Chamar o menu de estatisticas
+        statisticsAnimator.SetBool("Ativado", true);
     }
 }

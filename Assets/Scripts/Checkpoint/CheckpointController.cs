@@ -56,7 +56,7 @@ public class CheckpointController : MonoBehaviour{
         Instantiate(playerPrefab, savedPosition, savedRotation);
     }
 
-    void Reset(){
+    public void Reset(){
         GameObject player = GameObject.FindWithTag("Player");
         GameObject[] copies = GameObject.FindGameObjectsWithTag("PlayerCopy");
 

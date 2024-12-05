@@ -12,7 +12,6 @@ public class DeathMenuController : MonoBehaviour
     private void Start()
     {
         Instance = this;
-
     }
 
     public void DeathMenu(){

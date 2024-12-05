@@ -8,6 +8,7 @@ public class Typewriter : MonoBehaviour
     [SerializeField] private float delayBetweenLetters; // Tempo entre cada letra
     [SerializeField] private string fullText; // O texto completo a ser exibido
 
+    private AudioController audioController;
     private string currentText = "";
 
     private void OnEnable()
@@ -15,6 +16,8 @@ public class Typewriter : MonoBehaviour
         if (textMeshPro == null)
             textMeshPro = GetComponent<TMP_Text>();
         
+        audioController = FindFirstObjectByType<AudioController>();
+
         StartCoroutine(ShowText());
     }
 
@@ -26,6 +29,10 @@ public class Typewriter : MonoBehaviour
         {
             currentText += fullText[i];
             textMeshPro.text = currentText;
+
+            if(fullText[i] != ' ')
+                audioController.PlayTextSound();
+
             yield return new WaitForSeconds(delayBetweenLetters);
         }
 

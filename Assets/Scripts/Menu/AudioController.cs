@@ -19,6 +19,7 @@ public class AudioController : MonoBehaviour
     public AudioClip copySound;
     public AudioClip mergeSound;
     public AudioClip landSound;
+    public AudioClip textSound;
     public AudioClip checkpointSound;
     public AudioClip backgroundMusic;
     public AudioClip endingMusic;
@@ -100,6 +101,10 @@ public class AudioController : MonoBehaviour
     public void PlayLandSound()
     {
         PlaySound(landSound);
+    }
+
+    public void PlayTextSound(){
+        PlaySound(textSound);
     }
 
     public void PlayDeathSound()
