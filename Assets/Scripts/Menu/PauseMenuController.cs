@@ -70,7 +70,7 @@ public class PauseMenuController : MonoBehaviour
         estatisticsAnimator.SetBool("Ativado", false);
     }
 
-    public void Reiniciar()
+    public void NovoJogo()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
