@@ -164,6 +164,11 @@ public class SlimeController : MonoBehaviour{
                 Destroy(gameObject);
 
             counterController.IncreaseDeaths();
+
+            SlimeController[] allSlimes = FindObjectsOfType<SlimeController>();
+            if(allSlimes.Length == 0){
+                
+            }
         }
     }
 

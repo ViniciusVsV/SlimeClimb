@@ -29,6 +29,10 @@ public class CheckpointBox : MonoBehaviour{
             AudioController.instance.PlayCheckpointSound();
             flagAnimator.enabled = true;
 
+            PlayerPrefs.SetInt($"checkpoint{id}", 1);
+
+            StartCoroutine(PauseMenuController.Instance.PopUpEstatisticas());
+
             trigger.enabled = false;
         }
     }

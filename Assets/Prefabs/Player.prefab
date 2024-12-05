@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5584976260397667687
 Transform:
   m_ObjectHideFlags: 0
@@ -9794,7 +9794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d09384be113f6d4eb2db25516f97ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 13
+  jumpSpeed: 12
   spriteRenderer: {fileID: 1898854072991867856}
   jumpParticlesPoint: {fileID: 1765182626256706884}
   slimeParticles: {fileID: 4074786049671483351}

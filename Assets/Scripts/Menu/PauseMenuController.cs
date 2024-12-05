@@ -108,4 +108,13 @@ public class PauseMenuController : MonoBehaviour
         pauseAnimator.SetBool(menu, false);
         AudioController.instance.PlayButtonClip();
     }
+
+    //pop up das estatisticas em cada checkpoint
+    public IEnumerator PopUpEstatisticas(){
+        estatisticsAnimator.SetBool("Ativado", true);
+
+        yield return new WaitForSeconds(2f);
+        
+        estatisticsAnimator.SetBool("Ativado", false);
+    }
 }

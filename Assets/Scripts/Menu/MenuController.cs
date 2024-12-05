@@ -18,16 +18,12 @@ public class MenuController : MonoBehaviour
     private void Awake()
     {
         ButtonsToArray();
-        int desbloqueados = PlayerPrefs.GetInt("CheckPoints", 1);
 
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            buttons[i].interactable = false;
-        }
-
-        for (int i = 0;i < desbloqueados; i++)
-        {
-            buttons[i].interactable = true;
+        for (int i = 1; i <= buttons.Length; i++){
+            if(PlayerPrefs.GetInt($"checkpoint{i}", 0) == 1)
+                buttons[i - 1].interactable = true;
+            else
+                buttons[i - 1].interactable = false;
         }
     }
 

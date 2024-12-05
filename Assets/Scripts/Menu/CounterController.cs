@@ -58,9 +58,11 @@ public class CounterController : MonoBehaviour{
         sectionJumps = 0;
         sectionDeaths = 0;  
         sectionResets = 0;
+        sectionDivisions = 0;
 
         sectionJumpsDisplay.GetComponent<TextMeshProUGUI>().text = sectionJumps.ToString();
         sectionDeathsDisplay.GetComponent<TextMeshProUGUI>().text = sectionDeaths.ToString();
         sectionResetsDisplay.GetComponent<TextMeshProUGUI>().text = sectionResets.ToString();
+        sectionDivisionsDisplay.GetComponent<TextMeshProUGUI>().text = sectionResets.ToString();
     }
 }
