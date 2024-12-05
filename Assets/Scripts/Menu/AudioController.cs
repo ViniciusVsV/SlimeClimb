@@ -19,8 +19,8 @@ public class AudioController : MonoBehaviour
     public AudioClip copySound;
     public AudioClip mergeSound;
     public AudioClip landSound;
+    public AudioClip checkpointSound;
     public AudioClip backgroundMusic;
-    public AudioClip preEndingMusic;
     public AudioClip endingMusic;
     public AudioClip tunnelMusic;
     private AudioSource audioSource;
@@ -132,6 +132,10 @@ public class AudioController : MonoBehaviour
         PlaySound(mergeSound);
     }
 
+    public void PlayCheckpointSound(){
+        PlaySound(checkpointSound);
+    }
+
     public void PlayButtonClip()
     {
         PlaySound(buttonPress);
@@ -160,24 +164,8 @@ public class AudioController : MonoBehaviour
             musicASource.Stop();
         }
 
-        if (preEndingMusic != null)
-        {
-            musicASource.clip = tunnelMusic;
-            musicASource.Play();
-        }
-    }
-    public void PlayPreEndingMusic()
-    {
-        if (musicASource.isPlaying)
-        {
-            musicASource.Stop();
-        }
-
-        if (preEndingMusic != null)
-        {
-            musicASource.clip = preEndingMusic;
-            musicASource.Play();
-        }
+        musicASource.clip = tunnelMusic;
+        musicASource.Play();
     }
 
     public void PlayEndingMusic()
@@ -187,11 +175,8 @@ public class AudioController : MonoBehaviour
             musicASource.Stop();
         }
 
-        if (preEndingMusic != null)
-        {
-            musicASource.clip = endingMusic;
-            musicASource.Play();
-        }
+        musicASource.clip = endingMusic;
+        musicASource.Play();
     }
     // Este método será chamado quando o script for ativado
     private void OnEnable()

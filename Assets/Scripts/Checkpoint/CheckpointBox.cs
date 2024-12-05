@@ -8,11 +8,15 @@ public class CheckpointBox : MonoBehaviour{
     [SerializeField] public Quaternion savedRotation;
     [SerializeField] public CinemachineVirtualCamera savedCamera;
     [SerializeField] public GameObject[] savedObjects;
+    [SerializeField] private Animator flagAnimator;
+
     private CheckpointController checkpointController;
     private BoxCollider2D trigger;
     public int id;
 
     void Start(){
+        flagAnimator.enabled = false;
+
         trigger = GetComponent<BoxCollider2D>();
 
         checkpointController = FindFirstObjectByType<CheckpointController>();
@@ -21,6 +25,9 @@ public class CheckpointBox : MonoBehaviour{
     private void OnTriggerEnter2D(Collider2D other){    
         if(other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
             checkpointController.SaveData(savedPosition, savedRotation, savedCamera, savedObjects);
+
+            AudioController.instance.PlayCheckpointSound();
+            flagAnimator.enabled = true;
 
             trigger.enabled = false;
         }

@@ -39,12 +39,11 @@ public class EndSceneBox : MonoBehaviour{
             else
                 stop = true;
 
-            if(!hasActivated)
-                if (AudioController.instance != null)
-                    {
-                        AudioController.instance.PlayTunnelMusic();
-                    }
+            if(!hasActivated){
+                AudioController.instance.PlayTunnelMusic();
+                    
                 StartCoroutine(EndCutscene(other.gameObject, slimeController));
+            }
         }
     }   
 
@@ -123,6 +122,6 @@ public class EndSceneBox : MonoBehaviour{
         ParallaxBackground parallaxBackground = FindFirstObjectByType<ParallaxBackground>();
         parallaxBackground.activated = true;
 
-        AudioController.instance.PlayPreEndingMusic();
+        //AudioController.instance.PlayPreEndingMusic();
     }
 }

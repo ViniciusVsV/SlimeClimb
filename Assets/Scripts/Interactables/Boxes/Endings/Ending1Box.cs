@@ -13,17 +13,27 @@ public class Ending1Box: MonoBehaviour{
     [SerializeField] private GameObject endText;
     private Rigidbody2D camRb;
 
+    public bool isMusic;
+
     void Start(){
         camRb = cam.GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
+            if(isMusic){
+                AudioController.instance.PlayEndingMusic();
+                
+                GetComponent<BoxCollider2D>().enabled = false;
+
+                return;
+            }
+
             camRb.velocity = Vector2.up * other.GetComponent<SlimeController>().GetJumpSpeed();
-            if (AudioController.instance != null)
-                    {
-                        AudioController.instance.PlayEndingMusic();
-                    }
+
+            if(AudioController.instance != null)
+                AudioController.instance.PlayEndingMusic();
+
             StartCoroutine(Ending1());    
         }
     }   
