@@ -9,6 +9,7 @@ public class Jump : BaseState
     public float currentJumpSpeed;
     private Vector2 jumpDirection;
     private Quaternion newJumpRotation, newLandRotation;
+    private Quaternion oldJumpRotation, aux;
 
     [SerializeField] private Transform slimeTransform;
 
@@ -16,7 +17,7 @@ public class Jump : BaseState
     [SerializeField] private ParticleSystem trailParticles;
     [SerializeField] private ParticleSystem slimeParticles;
 
-    public UnityEvent<ParticleSystem, ParticleSystem, ParticleSystem> jump;
+    public UnityEvent<ParticleSystem, Quaternion, ParticleSystem, ParticleSystem> jump;
 
     private void Awake()
     {
@@ -39,11 +40,18 @@ public class Jump : BaseState
             return;
         }
 
-        //Invoca o evento de pulo
-        jump.Invoke(jumpParticles, trailParticles, slimeParticles);
+        //Salva a rotação atual do slime
+        oldJumpRotation = slimeTransform.rotation;
+
+        //Calcula a nova rotação para a partícula de pulo
+        aux = newJumpRotation * Quaternion.Inverse(oldJumpRotation);
+        aux = Quaternion.Inverse(aux);
 
         //Rotaciona o slime
         slimeTransform.rotation = newJumpRotation;
+
+        //Invoca o evento de pulo
+        jump.Invoke(jumpParticles, aux, trailParticles, slimeParticles);
 
         //Dá play na animação
         animator.Play(jumpAnimation.name);

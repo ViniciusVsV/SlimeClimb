@@ -45,13 +45,6 @@ public class SlimeController : MonoBehaviour
 
         stateMachine.Set(idleState);
     }
-
-    void Update()
-    {
-        if (!isCopy)
-            Debug.Log(stateMachine.currentState);
-    }
-
     public void Jump(Vector2 direction)
     {
         nextJumpDirection = direction;

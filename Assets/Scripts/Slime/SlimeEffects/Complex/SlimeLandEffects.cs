@@ -17,7 +17,9 @@ public class SlimeLandEffects : MonoBehaviour
         ParticleSystem slimeParticles, Vector2 direction, float jumpSpeed
     )
     {
-        jumpParticles.Play();
+        jumpParticles.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        //jumpParticles.Play();
+
         speedParticles.Stop();
         slimeParticles.Play();
 

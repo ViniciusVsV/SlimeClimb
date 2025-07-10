@@ -8,10 +8,11 @@ public class Death : BaseState
     [SerializeField] private Transform slimeTransform;
     [SerializeField] private ParticleSystem deathParticles;
     private List<SlimeController> allSlimes = new();
+    private Vector2 deathPosition;
 
     private bool gameOver;
 
-    public UnityEvent<ParticleSystem> death;
+    public UnityEvent<ParticleSystem, Vector2> death;
 
     private void Start()
     {
@@ -20,11 +21,14 @@ public class Death : BaseState
 
     public override void StateEnter()
     {
-        //Invoca o evento de morte
-        death.Invoke(deathParticles);
+        //Salva a posição da morte
+        deathPosition = slimeTransform.position;
 
         //Move para posição origem e inclina a rotação
-        slimeTransform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(new Vector3(0f, 0f, 30f)));
+        slimeTransform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 0f, 30f));
+
+        //Invoca o evento de morte
+        death.Invoke(deathParticles, deathPosition);
 
         //Desativa o game object
         controller.isInactive = true;
@@ -40,8 +44,6 @@ public class Death : BaseState
                 break;
             }
         }
-
-        slimeTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 30f));
 
         if (gameOver)
             DeathMenuController.Instance.DeathMenu();

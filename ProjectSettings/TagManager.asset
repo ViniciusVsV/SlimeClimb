@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - Spike
   - PlayerCopy
@@ -59,6 +59,9 @@ TagManager:
   - name: Player
     uniqueID: 14500249
     locked: 0
+  - name: Obstacle
+    uniqueID: 2237954499
+    locked: 0
   - name: Particles
     uniqueID: 521221439
     locked: 0
@@ -68,3 +71,5 @@ TagManager:
   - name: Foreground
     uniqueID: 1632820797
     locked: 0
+  m_RenderingLayers:
+  - Default

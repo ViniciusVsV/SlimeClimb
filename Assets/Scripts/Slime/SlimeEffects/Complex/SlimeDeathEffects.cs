@@ -11,9 +11,11 @@ public class SlimeDeathEffects : MonoBehaviour
         deathCameraShake = FindFirstObjectByType<DeathCameraShake>();
     }
 
-    public void PlayEffects(ParticleSystem deathParticles)
+    public void PlayEffects(ParticleSystem deathParticles, Vector2 position)
     {
+        deathParticles.transform.position = position;
         deathParticles.Play();
+
         deathCameraShake.ShakeCamera();
 
         audioController.PlayDeathSound();
