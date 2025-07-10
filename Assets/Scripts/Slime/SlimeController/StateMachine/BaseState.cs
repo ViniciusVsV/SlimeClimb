@@ -7,17 +7,19 @@ public abstract class BaseState : MonoBehaviour
     protected Animator animator;
     protected Rigidbody2D rb;
     protected SlimeController controller;
+    protected SlimeStats stats;
 
     public void Initialise()
     {
         isComplete = false;
     }
 
-    public void Setup(Rigidbody2D rb, Animator animator, SlimeController controller)
+    public void Setup(Rigidbody2D rb, Animator animator, SlimeController controller, SlimeStats stats)
     {
         this.rb = rb;
         this.animator = animator;
         this.controller = controller;
+        this.stats = stats;
     }
 
     public virtual void StateEnter() { }

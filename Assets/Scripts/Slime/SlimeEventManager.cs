@@ -6,6 +6,7 @@ public class SlimeEventManager : MonoBehaviour
     private SlimeDivideEffects slimeDivideEffects;
     private SlimeJumpEffects slimeJumpEffects;
     private SlimeLandEffects slimeLandEffects;
+    private SlimeMergeEffects slimeMergeEffects;
 
     private void Start()
     {
@@ -13,6 +14,7 @@ public class SlimeEventManager : MonoBehaviour
         slimeDivideEffects = FindFirstObjectByType<SlimeDivideEffects>();
         slimeJumpEffects = FindFirstObjectByType<SlimeJumpEffects>();
         slimeLandEffects = FindFirstObjectByType<SlimeLandEffects>();
+        slimeMergeEffects = FindFirstObjectByType<SlimeMergeEffects>();
     }
 
     public void Jump(ParticleSystem jumpParticles, Quaternion rotation, ParticleSystem trailParticles, ParticleSystem slimeParticles)
@@ -41,10 +43,20 @@ public class SlimeEventManager : MonoBehaviour
         CounterController.Instance.IncreaseDivisions();
     }
 
+    public void Merge()
+    {
+        slimeMergeEffects.PlayEffects();
+    }
+
     public void Die(ParticleSystem deathParticles, Vector2 position)
     {
         slimeDeathEffects.PlayEffects(deathParticles, position);
 
         CounterController.Instance.IncreaseDeaths();
+    }
+
+    public void Deactivate(ParticleSystem trailParticles)
+    {
+        trailParticles.Stop();
     }
 }

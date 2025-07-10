@@ -24,6 +24,6 @@ public class JumpStart : BaseState
 
         isComplete = true;
 
-        controller.SetJumpState();
+        controller.SetJumpState(false);
     }
 }

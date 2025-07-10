@@ -13,6 +13,7 @@ TagManager:
   - Camera
   - MusicSlider
   - SFXSlider
+  - MergeTrigger
   layers:
   - Default
   - TransparentFX

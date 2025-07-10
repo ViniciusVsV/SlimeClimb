@@ -55,7 +55,7 @@ public class Land : BaseState
         isComplete = true;
 
         if (controller.jumpBuffered)
-            controller.SetJumpState();
+            controller.SetJumpState(false);
         else
             controller.SetIdleState();
     }
