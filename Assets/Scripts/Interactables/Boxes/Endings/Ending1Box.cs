@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ending1Box: MonoBehaviour{
-    [SerializeField] private GameObject cam;
+/*    [SerializeField] private GameObject cam;
     [SerializeField] private float textWaitTime;
     [SerializeField] private GameObject text1;
     [SerializeField] private GameObject text2;
@@ -29,7 +29,7 @@ public class Ending1Box: MonoBehaviour{
                 return;
             }
 
-            camRb.velocity = Vector2.up * other.GetComponent<SlimeController>().GetJumpSpeed();
+            camRb.linearVelocity = Vector2.up * other.GetComponent<SlimeController>().GetJumpSpeed();
 
             StartCoroutine(Ending1());    
         }
@@ -54,5 +54,5 @@ public class Ending1Box: MonoBehaviour{
         //esperar um pouco a mais de tempo
         yield return new WaitForSeconds(textWaitTime * 2f);
         endText.SetActive(true);
-    }
+    }*/
 }

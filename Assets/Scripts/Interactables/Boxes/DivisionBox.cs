@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DivisionBox : MonoBehaviour{
-    [SerializeField] private GameObject playerPrefab;
+public class DivisionBox : MonoBehaviour
+{
+    /*[SerializeField] private GameObject playerPrefab;
     [SerializeField] private bool activate;
     private PlayerController prefabController;
 
@@ -29,5 +30,5 @@ public class DivisionBox : MonoBehaviour{
                     aux.canDivide = false;
             }
         }
-    }
+    }*/
 }

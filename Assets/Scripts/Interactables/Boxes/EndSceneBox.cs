@@ -42,13 +42,13 @@ public class EndSceneBox : MonoBehaviour{
             if(!hasActivated){
                 AudioController.instance.PlayTunnelMusic();
                     
-                StartCoroutine(EndCutscene(slimeController));
+                //StartCoroutine(EndCutscene(slimeController));
             }
         }
     }   
 
-    IEnumerator EndCutscene(SlimeController slimeController){
-        hasActivated = true;
+    //IEnumerator EndCutscene(SlimeController slimeController){
+        /*hasActivated = true;
 
         //Impedir reset no checkpoint
         CheckpointController checkpointController = FindFirstObjectByType<CheckpointController>();
@@ -56,7 +56,7 @@ public class EndSceneBox : MonoBehaviour{
 
         //Pegar valores iniciais
         initialCameraSize = vcam.m_Lens.OrthographicSize;
-        initialSpeed = playerRb.velocity.magnitude;
+        initialSpeed = playerRb.linearVelocity.magnitude;
 
         //bloquear os inputs do player
         slimes = FindObjectsOfType<SlimeController>();
@@ -65,7 +65,7 @@ public class EndSceneBox : MonoBehaviour{
         
         //câmera começa a ir para cima junto com o player
         Rigidbody2D camRb = cam.GetComponent<Rigidbody2D>();
-        camRb.velocity = Vector2.up * initialSpeed;
+        camRb.linearVelocity = Vector2.up * initialSpeed;
 
         float progress = 0f;
         while(!stop){
@@ -73,8 +73,8 @@ public class EndSceneBox : MonoBehaviour{
 
             //aumentar gradativamente a velocidade do jogador
             float newSpeed = Mathf.Lerp(initialSpeed, maxSpeed, progress);
-            playerRb.velocity = Vector2.up * newSpeed;
-            camRb.velocity = Vector2.up * newSpeed;
+            playerRb.linearVelocity = Vector2.up * newSpeed;
+            camRb.linearVelocity = Vector2.up * newSpeed;
 
             if(progress >= 0.1f){
                 //reduzir gradativamente o tamanho da câmera
@@ -92,7 +92,7 @@ public class EndSceneBox : MonoBehaviour{
         }
 
         //zerar parâmetros
-        camRb.velocity = Vector2.zero;
+        camRb.linearVelocity = Vector2.zero;
 
         //Aplicar maior tremor da câmera
         noise.m_AmplitudeGain = maxShakeIntensity * 2f;
@@ -121,5 +121,6 @@ public class EndSceneBox : MonoBehaviour{
         //ativar parallax do background
         ParallaxBackground parallaxBackground = FindFirstObjectByType<ParallaxBackground>();
         parallaxBackground.activated = true;
-    }
+        */
+    //}
 }

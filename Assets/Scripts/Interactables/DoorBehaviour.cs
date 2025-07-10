@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour{
     [SerializeField] private bool takesKey;
 
-    private void OnTriggerEnter2D(Collider2D other){
+    /*private void OnTriggerEnter2D(Collider2D other){
         if (other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
             PlayerController playerController = FindFirstObjectByType<PlayerController>();
          
@@ -18,5 +18,5 @@ public class Door : MonoBehaviour{
                 gameObject.SetActive(false);
             }
         }
-    }
+    }*/
 }

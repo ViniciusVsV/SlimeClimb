@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 
 public class CounterController : MonoBehaviour{
+    public static CounterController Instance;
+
     public int totalJumps = 0;
     public int totalResets = 0;
     public int totalDeaths = 0;
@@ -25,9 +27,14 @@ public class CounterController : MonoBehaviour{
     [SerializeField] GameObject sectionDeathsDisplay;
     [SerializeField] GameObject sectionDivisionsDisplay;
 
+    private void Start()
+    {
+        Instance = this;
+    }
+
     public void IncreaseJumps()
     {
-        totalJumps++; 
+        totalJumps++;
         sectionJumps++;
         totalJumpsDisplay.GetComponent<TextMeshProUGUI>().text = totalJumps.ToString();
         sectionJumpsDisplay.GetComponent<TextMeshProUGUI>().text = sectionJumps.ToString();

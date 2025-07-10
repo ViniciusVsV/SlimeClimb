@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedUpBox : MonoBehaviour{
-    [SerializeField] private GameObject playerPrefab;
+    /*[SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject copyPrefab;
     [SerializeField] private float targetSpeed;
     private BoxCollider2D trigger;
@@ -27,5 +27,5 @@ public class SpeedUpBox : MonoBehaviour{
 
             trigger.enabled = false;
         }
-    }
+    }*/
 }
