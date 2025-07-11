@@ -8,7 +8,7 @@ public class Merge : MonoBehaviour
 
     private SlimeStats stats1, stats2;
 
-    private SlimeController mainController, minorController;
+    private SlimeController minorController;
     private SlimeStats mainStats, minorStats;
 
     private GameObject mainSlime;
@@ -23,6 +23,10 @@ public class Merge : MonoBehaviour
 
     public void MergeSlimes(GameObject slime1, GameObject slime2)
     {
+        if (isMerging)
+            return;
+        isMerging = true;
+
         Debug.Log("Merge entre os slimes: " + slime1.name + " e " + slime2.name);
 
         //Obtem os stats dos slimes
@@ -32,11 +36,15 @@ public class Merge : MonoBehaviour
 
         //Define o slime mais importante
         mainSlime = slime1;
-        if (stats2.GetId() < stats1.GetId())
-            mainSlime = slime2;
+        minorSlime = slime2;
 
-        //Obtém o controller e stats do slime mais e do menos importante
-        mainController = mainSlime.GetComponent<SlimeController>();
+        if (stats2.GetId() < stats1.GetId())
+        {
+            mainSlime = slime2;
+            minorSlime = slime1;
+        }
+
+        //Obtém o controller e stats do slime menos importante
         mainStats = mainSlime.GetComponent<SlimeStats>();
 
         minorController = minorSlime.GetComponent<SlimeController>();
@@ -64,65 +72,9 @@ public class Merge : MonoBehaviour
         //Invoca evento de merge
         merge.Invoke();
     }
+
+    private void Update()
+    {
+        isMerging = false;
+    }
 }
-
-/*void OnTriggerEnter2D(Collider2D other){
-        if (isMerging)
-            return;
-
-        isMerging = true;
-
-        if (other.CompareTag("Player"))
-            MergePlayer();
-
-        else if (other.CompareTag("CopyDetector"))
-            MergeCopy(other);
-    }
-
-    void MergePlayer(){
-        Debug.Log("Tentando fundir com o player. O meu id é: " + copyId);
-
-        Vector3 sizeIncrease;
-
-        if(hasMerged)
-            sizeIncrease = new Vector3(0.5f, 0.5f);
-        else
-            sizeIncrease = new Vector3(0.25f, 0.25f);
-
-        playerTransform.localScale += sizeIncrease;
-
-        AudioController.instance.PlayMergeSound();
-
-        Destroy(gameObject);
-    }
-
-    void MergeCopy(Collider2D other){
-        Debug.Log("Tentando fundir com uma cópia. O meu id é: " + copyId);
-
-        CopyController otherController = other.GetComponentInParent<CopyController>();
-        int otherId = otherController.copyId;
-
-        if (copyId < otherId)
-        {
-            transform.localScale += new Vector3(0.125f, 0.125f);
-            
-            AudioController.instance.PlayMergeSound();
-
-            Destroy(other.transform.parent.gameObject);
-
-            hasMerged = true;
-        }
-
-        else if (copyId > otherId)
-        {
-            other.transform.parent.localScale += new Vector3(0.125f, 0.125f);
-
-            AudioController.instance.PlayMergeSound();
-
-            Destroy(gameObject);
-
-            otherController.hasMerged = true;   
-        }
-
-        HandleParticleValues();
-    }*/

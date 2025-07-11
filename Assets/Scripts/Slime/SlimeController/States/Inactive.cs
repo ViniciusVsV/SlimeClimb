@@ -11,6 +11,8 @@ public class Inactive : BaseState
 
     public override void StateEnter()
     {
+        rb.linearVelocity = Vector2.zero;
+
         stats.mergeTrigger.enabled = false;
         slimeSprite.enabled = false;
 
@@ -18,15 +20,9 @@ public class Inactive : BaseState
         trailParticles.Stop();
 
         stats.isDead = true;
+        stats.hasMerged = false;
 
-        StartCoroutine(EnterRoutine());
-    }
-
-    private IEnumerator EnterRoutine()
-    {
-        yield return new WaitForSeconds(1);
-
-        slimeTransform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 0f, 30f));
+        slimeTransform.SetPositionAndRotation(new Vector3(0f, 2f * stats.GetId(), 0f), Quaternion.Euler(0f, 0f, 30f));
     }
 
     public override void StateExit()
@@ -41,8 +37,7 @@ public class Inactive : BaseState
 
     private IEnumerator ExitRoutine()
     {
-        while (rb.linearVelocity != Vector2.zero)
-            yield return null;
+        yield return new WaitForSeconds(0.2f);
 
         stats.mergeTrigger.enabled = true;
     }

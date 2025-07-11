@@ -127,4 +127,20 @@ public class SlimeController : MonoBehaviour
         if (other.gameObject.CompareTag("Obstacle"))
             dieAction.KillSlime();
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("MergeTrigger"))
+        {
+            SlimeStats otherStats = other.GetComponentInParent<SlimeStats>();
+
+            Debug.Log("Meu Id: " + stats.GetId());
+            Debug.Log("Id do outro: " + otherStats.GetId());
+
+            if (stats.GetId() < otherStats.GetId())
+            {
+                mergeAction.MergeSlimes(gameObject, other.transform.parent.gameObject);
+                Debug.Log("Fazendo o merge!");
+            }
+        }
+    }
 }
