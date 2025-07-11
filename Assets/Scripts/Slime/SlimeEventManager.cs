@@ -48,9 +48,9 @@ public class SlimeEventManager : MonoBehaviour
         slimeMergeEffects.PlayEffects();
     }
 
-    public void Die(ParticleSystem deathParticles, Vector2 position)
+    public void Die(Vector2 position, Vector3 scale)
     {
-        slimeDeathEffects.PlayEffects(deathParticles, position);
+        slimeDeathEffects.PlayEffects(position, scale);
 
         CounterController.Instance.IncreaseDeaths();
     }
