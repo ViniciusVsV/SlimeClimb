@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class SlimeLandEffects : MonoBehaviour
 {
-    private AudioController audioController;
     private LandCameraShake landCameraShake;
 
     private void Start()
     {
-        audioController = FindFirstObjectByType<AudioController>();
         landCameraShake = FindFirstObjectByType<LandCameraShake>();
     }
 
@@ -25,6 +23,6 @@ public class SlimeLandEffects : MonoBehaviour
 
         landCameraShake.ShakeCamera(direction, jumpSpeed);
 
-        audioController.PlayLandSound();
+        AudioController.Instance.PlayLandSound();
     }
 }

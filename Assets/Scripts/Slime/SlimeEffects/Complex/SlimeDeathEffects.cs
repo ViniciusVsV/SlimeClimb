@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class SlimeDeathEffects : MonoBehaviour
 {
-    private AudioController audioController;
     private DeathCameraShake deathCameraShake;
     private DeathParticles deathParticles;
 
     private void Start()
     {
-        audioController = FindFirstObjectByType<AudioController>();
         deathCameraShake = FindFirstObjectByType<DeathCameraShake>();
         deathParticles = FindFirstObjectByType<DeathParticles>();
     }
@@ -19,6 +17,6 @@ public class SlimeDeathEffects : MonoBehaviour
 
         deathCameraShake.ShakeCamera();
 
-        audioController.PlayDeathSound();
+        AudioController.Instance.PlayDeathSound();
     }
 }

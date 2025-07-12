@@ -16,17 +16,20 @@ public class DeathMenuController : MonoBehaviour
         Instance = this;
     }
 
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.P) && isActive)
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P) && isActive)
             deathMenuAnimator.SetBool("ativado", false);
     }
 
-    public void DeathMenu(){
+    public void DeathMenu()
+    {
         deathMenuAnimator.SetBool("ativado", true);
         isActive = true;
     }
 
-    public void Reset(){
+    public void Reset()
+    {
         deathMenuAnimator.SetBool("ativado", false);
         isActive = false;
 
@@ -38,6 +41,6 @@ public class DeathMenuController : MonoBehaviour
     {
         isActive = false;
         SceneManager.LoadScene("Menu");
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
     }
 }

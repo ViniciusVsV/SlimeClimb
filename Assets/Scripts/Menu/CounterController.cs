@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class CounterController : MonoBehaviour{
+public class CounterController : MonoBehaviour
+{
     public static CounterController Instance;
 
     public int totalJumps = 0;
@@ -41,29 +42,30 @@ public class CounterController : MonoBehaviour{
     }
     public void IncreaseResets()
     {
-        totalResets++; 
+        totalResets++;
         sectionResets++;
         totalResetsDisplay.GetComponent<TextMeshProUGUI>().text = totalResets.ToString();
         sectionResetsDisplay.GetComponent<TextMeshProUGUI>().text = sectionResets.ToString();
     }
     public void IncreaseDeaths()
     {
-        totalDeaths++; 
+        totalDeaths++;
         sectionDeaths++;
         totalDeathsDisplay.GetComponent<TextMeshProUGUI>().text = totalDeaths.ToString();
         sectionDeathsDisplay.GetComponent<TextMeshProUGUI>().text = sectionDeaths.ToString();
     }
     public void IncreaseDivisions()
     {
-        totalDivisions++; 
+        totalDivisions++;
         sectionDivisions++;
         totalDivisionsDisplay.GetComponent<TextMeshProUGUI>().text = totalDivisions.ToString();
         sectionDivisionsDisplay.GetComponent<TextMeshProUGUI>().text = sectionDivisions.ToString();
     }
 
-    public void ResetSection(){
+    public void ResetSection()
+    {
         sectionJumps = 0;
-        sectionDeaths = 0;  
+        sectionDeaths = 0;
         sectionResets = 0;
         sectionDivisions = 0;
 

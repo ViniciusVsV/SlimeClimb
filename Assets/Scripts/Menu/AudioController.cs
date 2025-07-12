@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
-    public static AudioController instance;
+    public static AudioController Instance;
 
     [Header("Audio Clips")]
     public AudioClip jumpSound;
@@ -43,7 +43,7 @@ public class AudioController : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
@@ -66,7 +66,8 @@ public class AudioController : MonoBehaviour
         SetSFXVolume();
     }
 
-    public void PlayBackgroundMusic(){
+    public void PlayBackgroundMusic()
+    {
         musicASource.clip = backgroundMusic;
     }
 
@@ -103,7 +104,8 @@ public class AudioController : MonoBehaviour
         PlaySound(landSound);
     }
 
-    public void PlayTextSound(){
+    public void PlayTextSound()
+    {
         PlaySound(textSound);
     }
 
@@ -137,7 +139,8 @@ public class AudioController : MonoBehaviour
         PlaySound(mergeSound);
     }
 
-    public void PlayCheckpointSound(){
+    public void PlayCheckpointSound()
+    {
         PlaySound(checkpointSound);
     }
 

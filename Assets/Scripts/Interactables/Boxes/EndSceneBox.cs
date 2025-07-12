@@ -5,7 +5,8 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EndSceneBox : MonoBehaviour{
+public class EndSceneBox : MonoBehaviour
+{
     [SerializeField] private GameObject cam;
     [SerializeField] private float maxShakeIntensity;
     [SerializeField] private float minCameraSize;
@@ -22,105 +23,109 @@ public class EndSceneBox : MonoBehaviour{
     public bool stop;
     public bool hasActivated;
 
-    void Start(){
+    void Start()
+    {
         vcam = cam.GetComponent<CinemachineVirtualCamera>();
         noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         stop = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("PlayerCopy"))
+        {
             SlimeController slimeController = other.GetComponent<SlimeController>();
             playerRb = other.GetComponent<Rigidbody2D>();
 
-            if(stop)
+            if (stop)
                 stop = false;
             else
                 stop = true;
 
-            if(!hasActivated){
-                AudioController.instance.PlayTunnelMusic();
-                    
+            if (!hasActivated)
+            {
+                AudioController.Instance.PlayTunnelMusic();
+
                 //StartCoroutine(EndCutscene(slimeController));
             }
         }
-    }   
+    }
 
     //IEnumerator EndCutscene(SlimeController slimeController){
-        /*hasActivated = true;
+    /*hasActivated = true;
 
-        //Impedir reset no checkpoint
-        CheckpointController checkpointController = FindFirstObjectByType<CheckpointController>();
-        checkpointController.canRestart = false;
+    //Impedir reset no checkpoint
+    CheckpointController checkpointController = FindFirstObjectByType<CheckpointController>();
+    checkpointController.canRestart = false;
 
-        //Pegar valores iniciais
-        initialCameraSize = vcam.m_Lens.OrthographicSize;
-        initialSpeed = playerRb.linearVelocity.magnitude;
+    //Pegar valores iniciais
+    initialCameraSize = vcam.m_Lens.OrthographicSize;
+    initialSpeed = playerRb.linearVelocity.magnitude;
 
-        //bloquear os inputs do player
-        slimes = FindObjectsOfType<SlimeController>();
-        foreach(SlimeController slime in slimes)
-            slime.inputsBlocked = true;
-        
-        //câmera começa a ir para cima junto com o player
-        Rigidbody2D camRb = cam.GetComponent<Rigidbody2D>();
-        camRb.linearVelocity = Vector2.up * initialSpeed;
+    //bloquear os inputs do player
+    slimes = FindObjectsOfType<SlimeController>();
+    foreach(SlimeController slime in slimes)
+        slime.inputsBlocked = true;
 
-        float progress = 0f;
-        while(!stop){
-            progress = Mathf.Clamp01(progress + Time.deltaTime * 0.2f);
+    //câmera começa a ir para cima junto com o player
+    Rigidbody2D camRb = cam.GetComponent<Rigidbody2D>();
+    camRb.linearVelocity = Vector2.up * initialSpeed;
 
-            //aumentar gradativamente a velocidade do jogador
-            float newSpeed = Mathf.Lerp(initialSpeed, maxSpeed, progress);
-            playerRb.linearVelocity = Vector2.up * newSpeed;
-            camRb.linearVelocity = Vector2.up * newSpeed;
+    float progress = 0f;
+    while(!stop){
+        progress = Mathf.Clamp01(progress + Time.deltaTime * 0.2f);
 
-            if(progress >= 0.1f){
-                //reduzir gradativamente o tamanho da câmera
-                float newSize = Mathf.Lerp(initialCameraSize, minCameraSize, (progress - 0.2f) / 0.8f);
-                vcam.m_Lens.OrthographicSize = newSize;
-            }
-            
-            if(progress >= 0.3f){
-                //aumentar gradativamente o tremor de tela
-                float newIntensity = Mathf.Lerp(0, maxShakeIntensity, (progress - 0.3f) / 0.7f);
-                noise.m_AmplitudeGain = newIntensity;
-            }
+        //aumentar gradativamente a velocidade do jogador
+        float newSpeed = Mathf.Lerp(initialSpeed, maxSpeed, progress);
+        playerRb.linearVelocity = Vector2.up * newSpeed;
+        camRb.linearVelocity = Vector2.up * newSpeed;
 
-            yield return null;
-        }
-
-        //zerar parâmetros
-        camRb.linearVelocity = Vector2.zero;
-
-        //Aplicar maior tremor da câmera
-        noise.m_AmplitudeGain = maxShakeIntensity * 2f;
-        noise.m_FrequencyGain = 1f;
-
-        //aumentar rapidamente o tamanho da câmera e dimiuir o tremor da tela
-        progress = 0f;
-        while(progress < 1f){
-            progress = Mathf.Clamp01(progress + Time.deltaTime * 1.2f);
-
-            float newSize = Mathf.Lerp(minCameraSize, initialCameraSize, progress);
+        if(progress >= 0.1f){
+            //reduzir gradativamente o tamanho da câmera
+            float newSize = Mathf.Lerp(initialCameraSize, minCameraSize, (progress - 0.2f) / 0.8f);
             vcam.m_Lens.OrthographicSize = newSize;
-
-            float newIntensity = Mathf.Lerp(maxShakeIntensity * 2f, 0f, progress);
-            noise.m_AmplitudeGain = newIntensity;
-
-            yield return null;
         }
 
-        //setar nova velocidade do player   
-        slimeController.SetJumpSpeed(maxSpeed / 2);
+        if(progress >= 0.3f){
+            //aumentar gradativamente o tremor de tela
+            float newIntensity = Mathf.Lerp(0, maxShakeIntensity, (progress - 0.3f) / 0.7f);
+            noise.m_AmplitudeGain = newIntensity;
+        }
 
-        //reativar movimento do personagem
-        slimeController.inputsBlocked = false;
+        yield return null;
+    }
 
-        //ativar parallax do background
-        ParallaxBackground parallaxBackground = FindFirstObjectByType<ParallaxBackground>();
-        parallaxBackground.activated = true;
-        */
+    //zerar parâmetros
+    camRb.linearVelocity = Vector2.zero;
+
+    //Aplicar maior tremor da câmera
+    noise.m_AmplitudeGain = maxShakeIntensity * 2f;
+    noise.m_FrequencyGain = 1f;
+
+    //aumentar rapidamente o tamanho da câmera e dimiuir o tremor da tela
+    progress = 0f;
+    while(progress < 1f){
+        progress = Mathf.Clamp01(progress + Time.deltaTime * 1.2f);
+
+        float newSize = Mathf.Lerp(minCameraSize, initialCameraSize, progress);
+        vcam.m_Lens.OrthographicSize = newSize;
+
+        float newIntensity = Mathf.Lerp(maxShakeIntensity * 2f, 0f, progress);
+        noise.m_AmplitudeGain = newIntensity;
+
+        yield return null;
+    }
+
+    //setar nova velocidade do player   
+    slimeController.SetJumpSpeed(maxSpeed / 2);
+
+    //reativar movimento do personagem
+    slimeController.inputsBlocked = false;
+
+    //ativar parallax do background
+    ParallaxBackground parallaxBackground = FindFirstObjectByType<ParallaxBackground>();
+    parallaxBackground.activated = true;
+    */
     //}
 }

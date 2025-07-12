@@ -19,18 +19,20 @@ public class MenuController : MonoBehaviour
     {
         ButtonsToArray();
 
-        for (int i = 1; i <= buttons.Length; i++){
-            if(PlayerPrefs.GetInt($"checkpoint{i}", 0) == 1)
+        for (int i = 1; i <= buttons.Length; i++)
+        {
+            if (PlayerPrefs.GetInt($"checkpoint{i}", 0) == 1)
                 buttons[i - 1].interactable = true;
             else
                 buttons[i - 1].interactable = false;
         }
     }
 
-    void Start(){
+    void Start()
+    {
         loadCheckpoint = FindFirstObjectByType<LoadCheckpoint>();
 
-        AudioController.instance.PlayBackgroundMusic();
+        AudioController.Instance.PlayBackgroundMusic();
     }
 
     public void SairJogo()
@@ -42,19 +44,19 @@ public class MenuController : MonoBehaviour
     public void AtivarMenu(string menu)
     {
         menuAnimator.SetBool(menu, true);
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
     }
 
     public void DesativarMenu(string menu)
     {
         menuAnimator.SetBool(menu, false);
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
     }
 
     // Funções do Seletor de Fase
     public void CarregarFase(int index)
     {
-        loadCheckpoint.index = index;
+        //loadCheckpoint.index = index;
 
         SceneManager.LoadScene("Levels");
     }
@@ -64,7 +66,8 @@ public class MenuController : MonoBehaviour
         int childCount = levelButtons.transform.childCount;
         buttons = new Button[childCount];
 
-        for (int i = 0; i < childCount; i++) {
+        for (int i = 0; i < childCount; i++)
+        {
             buttons[i] = levelButtons.transform.GetChild(i).gameObject.GetComponent<Button>();
         }
     }

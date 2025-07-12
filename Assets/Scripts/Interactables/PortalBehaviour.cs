@@ -34,9 +34,9 @@ public class PortalBehaviour : MonoBehaviour
     private IEnumerator TeleportPlayer(Collider2D other, GameObject targetPortal)
     {
         isTeleporting = true;
-        AudioController.instance.PlayPortalSound();
+        AudioController.Instance.PlayPortalSound();
 
-        if(other.transform.parent != null)
+        if (other.transform.parent != null)
             other.transform.parent.position = transform.transform.position;
         else
             other.transform.position = targetPortal.transform.position;

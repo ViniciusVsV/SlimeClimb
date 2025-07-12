@@ -5,25 +5,29 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadCheckpoint : MonoBehaviour{
+public class LoadCheckpoint : MonoBehaviour
+{
     private static LoadCheckpoint Instance;
 
     public int index;
     private CheckpointBox[] checkpoints;
     private CheckpointController checkpointController;
 
-    private void Awake() {
-        if(Instance == null){
+    private void Awake()
+    {
+        if (Instance == null)
+        {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
-            Destroy(gameObject);    
+            Destroy(gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void Load(){
+    public void Load()
+    {
         checkpoints = FindObjectsOfType<CheckpointBox>();
         checkpoints = checkpoints.OrderBy(c => c.id).ToArray();
 
@@ -42,12 +46,14 @@ public class LoadCheckpoint : MonoBehaviour{
         //Fazer tratamento dos casos
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode){
-        if(scene.name == "Levels")
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Levels")
             Load();
     }
 
-    void OnDestroy() {
+    void OnDestroy()
+    {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

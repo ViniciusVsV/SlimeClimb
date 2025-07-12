@@ -3,13 +3,6 @@ using UnityEngine;
 
 public class SlimeJumpEffects : MonoBehaviour
 {
-    private AudioController audioController;
-    
-    private void Start()
-    {
-        audioController = FindFirstObjectByType<AudioController>();
-    }
-
     public void PlayEffects
     (
         ParticleSystem jumpParticles, Quaternion rotation,
@@ -22,6 +15,6 @@ public class SlimeJumpEffects : MonoBehaviour
         trailParticles.Play();
         slimeParticles.Stop();
 
-        audioController.PlayJumpSound();
+        AudioController.Instance.PlayJumpSound();
     }
 }

@@ -23,8 +23,9 @@ public class PauseMenuController : MonoBehaviour
 
     }
 
-    private void Update(){
-        if(Input.GetKeyDown(KeyCode.Escape))
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = pauseAnimator.GetBool("Pausado");
             configMenu = pauseAnimator.GetBool("Configuracoes");
@@ -56,7 +57,7 @@ public class PauseMenuController : MonoBehaviour
 
         AtivarMenu("Pausado");
         Time.timeScale = 0;
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
         estatisticsAnimator.SetBool("Ativado", true);
     }
 
@@ -66,7 +67,7 @@ public class PauseMenuController : MonoBehaviour
 
         DesativarMenu("Pausado");
         Time.timeScale = 1;
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
         estatisticsAnimator.SetBool("Ativado", false);
     }
 
@@ -74,7 +75,7 @@ public class PauseMenuController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
     }
 
     public void Configs()
@@ -92,8 +93,8 @@ public class PauseMenuController : MonoBehaviour
     public void MenuPrincipal()
     {
         Time.timeScale = 1;
-        AudioController.instance.PlayButtonClip();
-        AudioController.instance.PlayBackgroundMusic();
+        AudioController.Instance.PlayButtonClip();
+        AudioController.Instance.PlayBackgroundMusic();
         SceneManager.LoadScene("Menu");
     }
 
@@ -101,21 +102,22 @@ public class PauseMenuController : MonoBehaviour
     public void AtivarMenu(string menu)
     {
         pauseAnimator.SetBool(menu, true);
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
     }
 
     public void DesativarMenu(string menu)
     {
         pauseAnimator.SetBool(menu, false);
-        AudioController.instance.PlayButtonClip();
+        AudioController.Instance.PlayButtonClip();
     }
 
     //pop up das estatisticas em cada checkpoint
-    public IEnumerator PopUpEstatisticas(){
+    public IEnumerator PopUpEstatisticas()
+    {
         estatisticsAnimator.SetBool("Ativado", true);
 
         yield return new WaitForSeconds(2f);
-        
+
         estatisticsAnimator.SetBool("Ativado", false);
     }
 }

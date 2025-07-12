@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-public class CheckpointBox : MonoBehaviour{
+public class CheckpointBox : MonoBehaviour
+{
     [SerializeField] public Vector3 savedPosition;
     [SerializeField] public Quaternion savedRotation;
     [SerializeField] public CinemachineVirtualCamera savedCamera;
@@ -14,7 +15,8 @@ public class CheckpointBox : MonoBehaviour{
     private BoxCollider2D trigger;
     public int id;
 
-    void Start(){
+    void Start()
+    {
         flagAnimator.enabled = false;
 
         trigger = GetComponent<BoxCollider2D>();
@@ -22,11 +24,13 @@ public class CheckpointBox : MonoBehaviour{
         checkpointController = FindFirstObjectByType<CheckpointController>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other){    
-        if(other.CompareTag("Player") || other.CompareTag("PlayerCopy")){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("PlayerCopy"))
+        {
             checkpointController.SaveData(savedPosition, savedRotation, savedCamera, savedObjects);
 
-            AudioController.instance.PlayCheckpointSound();
+            AudioController.Instance.PlayCheckpointSound();
             flagAnimator.enabled = true;
 
             PlayerPrefs.SetInt($"checkpoint{id}", 1);
